@@ -38,12 +38,14 @@ Pico8 Anfänger Kurs 2024 / Saturn91
 Wir verwenden heute die gratis online version von Pico8 die "Education" (oder zu Deutsch "Ausbildungs") version. Diese erlaubt uns das komplette Spiel zu erstellen und alle Featurees der Konsole zu verwenden, AUSSER das exportieren des Spiels als ".exe" file. Dies geht nur mit der bezahlten Version. Wer möchte kann sich am Ende des Tages bei mir melden und dann kann ich gerne dabei helfen eine Version zu erhalten.
 
 
-## click me --> [Pico8-edu link](https://www.pico-8-edu.com/) <-- click me
-
+<h2 align="center"> click me --> <a href="https://www.pico-8-edu.com/">Pico8-edu link</a> <-- click me
+<br>
+<br>
 <div align="center">
-<img  src="images/intro/pico8Edu.png">
+<img  src="images/intro/pico8Edu.png" style="max-width: 300px;">
 </div>
 
+<div style="page-break-after: always;"></div>
 
 ## Fantasy Konsole?
 <div align="center">
