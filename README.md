@@ -13,7 +13,7 @@
     </br>
     Datum: 02.04.2024
     </br>
-    Thema: Einsteiger Kurs Pico8
+    Thema: Kurs Spieleentwicklung mit Pico8
     <br>
     </br>
     </br>
@@ -21,7 +21,7 @@
 
 
 <h1 align="center">
-Pico8 Anfänger Kurs 2024 / Saturn91
+Spieleentwicklung mit Pico8 2024 / Saturn91
 </h1>
 
 <div style="page-break-after: always;"></div>
@@ -125,7 +125,274 @@ Beim Programmieren ist es wichtig, dass wir beinahe jeden Buchstaben und insbeso
 
 Sollte etwas nicht funktionieren wie im Script beschrieben, gerne entweder das Kapitel "Debugging / Fehlersuch" durchlesen, und oder mich um Hilfe fragen.
 
-## Komandos zum interagieren mit der Engine
+## print("hallo")
+Als erstes schauen wir an wie wir in Pico8 programmieren. Dazu starten wir die Pico8-edu, oder wer hat die Vollversion.
+
+<h4 align="center"> click me --> <a href="https://www.pico-8-edu.com/">Pico8-edu link</a> <-- click me</h4>
+<br>
+<br>
+<div align="center">
+</div>
+
+1. Pico8 starten
+2. (nur für pico8 edu) Play button drücken
+3. Nachdem diie kurze Intro Animation abgespielt wurde sollte es wie auf dem bild unten ausehen. Evtl. seht ihr jedoch eine andere version (unten: ) die versions Unterschiede könnt ihr ignorieren. Auf der Edu version im Browser werdet ihr ausserdem zusätzlich einen pinken Teext "USING TEMPORARY DISK" sehen.
+
+<div align="center">
+<img  src="images/step-by-step/01_pico8_start.png" style="max-width: 300px;">
+</div>
+
+4. fange einmal an zu tippen und gib `print("hello world")` ein (beachte dass automatisch Grossbuchstaben verwendet werden... dies ist so bei Pico8, Grossbuchstaben (shift) werden in Pico8 zu "komischen" Zeichen) dann mit "Enter" bestätigen. Danach erscheint unten eine neue Zeile:
+
+<div align="center">
+<img  src="images/step-by-step/02_hallo.png" style="max-width: 300px;">
+</div>
+
+5. Wenn ihr eine Meldung "SYNTAX ERROR" seht, habt ihr einen Fehler gemacht, in der Regel habt ihr ein oder mehrere Zeichen vergessen zu tippen. In meinem Beispiel habe ich das `"` vor der Klammer vergessen. Auf jeden Fall solltet ihr Zeichen für Zeichen überprüfen ob ihr das richtige abgetippt habt.
+
+<div align="center">
+<img  src="images/step-by-step/03_syntax_error.png" style="max-width: 300px;">
+</div>
+
+6. Glückwunsch das war bereits die erste Zeile code die ihr in Pico8 habt laufen lassen.
+
+### Aufgabe
+1. was musst du tun um `hallo name` zu printen?
+2. versuch mal absichtlich einen Fehler zu machen und überlege dir ob du die Fehlermeldung verstehst.
+
+## a + b
+Pico8 kann auch als Taschenrechner verwendet werden. Lass es uns versuchen.
+1. tippe `a=1` + enter
+2. tippe `b=2` + enter
+3. tippe `c=a+b` + enter
+4. tippe `print(c)` um das ergebnis zu auszugeben (auszudrucken englisch -> print)
+
+Ergebnis:
+<div align="center">
+<img  src="images/step-by-step/04_a_and_b.png" style="max-width: 300px;">
+</div>
+
+### Aufgabe
+1. Könnte man auch direkt die Rechnung im print ausgeben? Wie?
+2. Hat jemand eine Idee wie man multiplikationen eingeben könnte?
+3. Divisionen?
+4. Minus?
+
+## Weitere Kommandos
+Die folgenden Kommandos bitte einmal ausprobieren.
+| Kommando | erwarteter effekt |
+| -- | -- |
+| `cls` | Bildschirm leeren |
+| `print("hallo",20,20,9)` | Hallo auf den Bildschirm schreiben print(text,x-Pos,y-Pos,farbe) |
+| `rectfill(0,0,100,100,11)` | Rechteck auf den Bildschirm zeichnen rectfill(x-Pos1,y-Pos1,x-Pos2,y-Pos2,farbe)|
+| `circ(80,80,40,1)` | Kreis zeichnen (circ(x-Pos,y-Pos,radius,farbe)) | 
+| `circfill(40,40,40,2)` | Kreis füllen circfill(x-Pos,y-Pos,radius,farbe)|
+
+## unser erstes Programm
+Was wir in den vorherigen Abschnitt gemacht haben ist direkt mit der engine zu interagieren und ihr mit Programmier code zu sagen was sie tun soll. Das kann unter Umständen bereits nützlich sein, aber wir können die oben gemachten Beispiele noch effizienter implementieren.
+
+## Unser erstes richtiges Programm
+Dafür werden wir nun erstmals in die Programmieransicht wechseln. 
+
+Um zur Programmieransicht zu gelangen benutze die Taste "ESC" oben links auf der Tastatur.
+
+<div align="center">
+<img  src="images/step-by-step/05_editor.png" style="max-width: 300px;">
+</div>
+
+Wir schreiben nun unser erstes Programm. Dazu bitte folgendes abtippen. (Ja ihr könnt es auch kopieren)
+
+```lua
+cls(1)
+circfill(30,30,40,2)
+circfill(60,50,40,13)
+rectfill(38,78,86,86,0)
+print("let's pico8",40,80,11)
+```
+
+Dass sieht dann im Editoren so aus:
+<div align="center">
+<img  src="images/step-by-step/06_first_programm.png" style="max-width: 300px;">
+</div>
+
+Nun lassen wir das Programm einmal laufen. Dazu nutzen wir den Command:
+
+CTRL + S (speichern)
+CTRL + R (run)
+
+Alternativ können wir auch mit "ESC" zurück in die Konsole gelangen. Dann mit den Commands "save" + ENTER und "run" + ENTER um das Programm zu starten.
+
+Das Resultat sollte so ausehen.
+
+<div align="center">
+<img  src="images/step-by-step/07_first_prg_run.png" style="max-width: 300px;">
+</div>
+
+<br>
+<br>
+
+<p style="font-size: 32px; line-height: 35px">GRATULIERE DU HAST DEIN ERSTES PROGRAMM GESCHRIEBEN!!</p>
+
+Gut, aber mit Micrsoft Powerpoint krieg ich dass auch hin... ist dass nicht ein wenig kompliziert? Ja, da hasst du recht. Aber lass uns ersteinmal die Zeilen auseinander nehmen bevor wir was interessanteres schreiben.
+
+## Klassenaufgabe
+1. in Pico8 den Code anschauen und mit den "Kommandos" von weiter oben vergleichen. Warum ist was wo?
+2. Habt ihr eine Idee warum die Schrift über den Kreisen gezeichnet wird?
+
+## Fazit
+Mit verschiedenen Kommandos kann man einer Game engine sagen was sie tun / anzeigen soll. Mehrere Kommandos zusammen sind das was wir ein Programm nennen. Ein Computerspiel ist im Grunde genaus so ein Programm. Lass uns nun im nächsten Kapitel anschauen wie ein solches Computerspiel Programm aufgebaut ist.
+<div style="page-break-after: always;"></div>
+
+# Sprites oder "Bilder" zeichnen
+Nun kommen wir zu einem sehr tollen Abschnitt. Ihr dürft nun die Grafiken zeichen die ihr für den Rest des Projekts verwenden möchtet.
+
+<div align="center">
+<img  src="images/step-by-step/08_spaceship.png" style="max-width: 150px;">
+</div>
+
+Um euer eigenes Raumschiff zu zeichnen könnt ihr in Pico 8 oben rechts im Editoren das Icon "Sprites" anclicken.
+
+<div align="center">
+<img  src="images/step-by-step/09_open_sprite_editor.png" style="max-width: 300px;">
+</div>
+
+Danach öffnet sich für euch der sogenannte Spriteeditor.
+
+
+<div align="center">
+<img  src="images/step-by-step/10_spriteeditor.png" style="max-width: 300px;">
+</div>
+
+Zeichnet nun folgende Dinge von links nach rechts:
+1. euren Spieler character (Ein Raumschiff) in knalligen Farben
+2. etwas zum Aufsammeln (in meinem Fall ein Satelit) ebenfalls knallig aber andere Farben als der Spieler
+3. Ein paar hintergrund Objekte (in meinem Fall Sterne) in eher gedeckten Farben
+
+Bei mir sieht dass dann so aus
+
+<div align="center">
+<img  src="images/step-by-step/11_sprites.png" style="max-width: 300px;">
+</div>
+
+
+<br>
+<br>
+
+> Nun werden wir einmal speichern was wir bis jetzt gemacht haben.
+> Dazu einmal Escape drücken bis du die Konsole oder das Terminal siehst.
+> Dort den Befehl "save meinspiel-sprites.p8" und dann ENTER drücken.
+> Es sollte dann eine Datei "meinspiel-sprites.p8" gedownloaded werden.
+
+> Laden funktioniert ähnlich. Um eine vorher heruntergeladene Version zu laden, gib einfach "load meinspiel.p8" ein und dein Spiel wird wieder geladen.
+
+> Speicherort: Dateien können nur vom download ordner geladen werden und werden auch immer dort gespeichert. Andere Dateien findet Pico8 nicht.
+
+<br>
+<br>
+
+## Sprites zeichnen mit Pico8
+Nun wollen wir zumindest einmal das Spielsrpite zeichnen. 
+
+1. geht wieder in die Konsole (oder Terminal) und gebt ein "spr(1,20,10)"
+2. der Spieler wird oben links gezeichnet.
+3. Welche werte musst du wohl ändern um den Spieler in der Mitte des Bildschirms zu zeichnen (Tipp, der Bildschirm von pico8 ist 128x128 gross, sprites sind 8x8 gross)
+
+Das Endresultat sollte so ausehen
+
+<div align="center">
+<img  src="images/step-by-step/12_draw_player.png" style="max-width: 300px;">
+</div>
+
+Wenn du herausgefunden hast wie du das Sprite in der Mitte zeichnen kannst
+1. Wechsle in den Code Editoren.
+2. lösche allen bisherigen Code
+3. Schreibe in der ersten Zeile `cls()` um den Bildschirm zu löschen 
+4. füge nur den Command hinzu um das Sprite in der Mitte des Bildschirms zu zeichnen
+5. Drücke `CTRL + S` (speichern) und `CTRL + R` (run) um das Programm zu starten. Du solltest dann das Sprite auch wieder in der Mitte des Bildschirms sehen.
+
+```lua
+cls()
+spr(1,?,?) --? mit den werten für x und y ersetzen ;-)
+```
+
+Mit dieser Funktion können wir also Sprites auf den Bildschirm zeichnen.
+
+# Variablen
+Wenn wir einen Wert mehrfach benötigen, oder zischen speichern wollen, können wir beim Programmieren sogenannte Variabeln einsetzen. Wir werden variabeln nun verwenden um unseren Spieler auf dem Bildschirm zu positionieren. Dazu erstellen wir nun zwei variablen.
+
+1. `player_x` die x Koordinate des Spielers
+2. `player_y` die y Koordinate des Spielers
+
+Im Code sieht dass wie folgt aus
+
+```lua
+--definieren der variabeln
+player_x = 60 
+player_y = 60
+
+cls()
+
+--benutzen der variabeln
+spr(1,player_x,player_y)
+```
+
+> nicht vergessen den Code zu testen. Dazu wie immer `CTRL S` & `CTRL R` der Spieler sollte in der Mitte des Bildschirms angezeigt werden.
+
+--> Nun bitte das Spiel wieder speicher und downloaden (in Terminal `save meinspiel-variabeln.p8`) <--
+
+## Was man in variabeln speichern kann
+Variabeln können viele verschiedene Werte speichern. Die einfachsten sind texte und zahlen. Diese werden wir in diesem Kurs am häufigsten verwenden.
+
+```lua
+ein_text = "hallo ich bin ein Text"
+eine_zahl = 123
+
+print(ein_text) --wird "hallo ich bin ein Text anzeigen"
+print(eine_zahl) --wird "123" anzeigen
+```
+
+> Wir können den Wert von Variabeln auch ändern. Dies werden wir im nächsten Kapitel verwenden um den Spieler zu bewegen
+
+# Konzept "Gameloop" oder Game schlaufe
+In einem Spiel werden nicht nur Bilder angezeigt sondern es werden "bewegte" Bilder angezeigt. Ein vergleichbares Beispiel ist zum Beispiel ein Film.
+
+## Klassenaufgabe
+1. Wie genau kommen bewegte Bilder, oder Filme auf den Bildschirm. Geht davon aus dass ihr den Film von Hand zeichnen müsstet um die sache zu vereinfachen.
+2. Wer hat schon einmal von 60 FPS gehört oder von `frames per second`
+
+## Bewegung in Spielen
+Um ein bewegtes Bild in Spielen darzustellen müssen wir ein Grafikelement (zum Beispiel ein Rechteck) nacheinander an verschiedenen Positionen zeichnen. Wir müssen Code mehrfach aufrufen. Dies wird bei Spielen mit der Game loop gemacht.
+
+> !! Vergewissert euch dass ihr gespeichert und das Spiel als "mainspiel-variabeln.p8" gedownloaded habt.
+
+Nun erweitert ihr euren Code wie folgt
+
+```lua
+--definieren der variabeln
+player_x = 60 
+player_y = 60
+
+cls()
+
+--benutzen der variabeln
+spr(1,player_x,player_y)
+
+counter = 0
+function _draw()
+    counter = counter + 1
+    --fuege "hello " und counter zusammen (z.B. "hello 0")
+    print("hello "..counter)
+end
+```
+
+## Klassenaufgabe:
+1. lasst das Programm laufen
+2. was seht ihr
+3. habt ihr eine Vermutung was der neue Teil im Code macht?
+4. warum sehen wir den Spieler am Anfang, aber nur kurz?
+
+
+
 
 ## Debugging / Fehlersuche
  
