@@ -391,8 +391,27 @@ end
 3. habt ihr eine Vermutung was der neue Teil im Code macht?
 4. warum sehen wir den Spieler am Anfang, aber nur kurz?
 
+## update und draw Funktionen
 
+# Funktionen allgemein
 
+# Tastatur input
+
+# Kollision
+
+# zufällige Position
+
+# SFX
+
+# Punkte und UI
+
+# Highscore
+
+# Explosionen (Bonus Kapitel)
+
+## Pico8 Cheatsheet (Spickzettel)
+
+## Wie Weiter?
 
 ## Debugging / Fehlersuche
  
