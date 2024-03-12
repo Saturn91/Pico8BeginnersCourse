@@ -191,7 +191,6 @@ Die folgenden Kommandos bitte einmal ausprobieren.
 ## unser erstes Programm
 Was wir in den vorherigen Abschnitt gemacht haben ist direkt mit der engine zu interagieren und ihr mit Programmier code zu sagen was sie tun soll. Das kann unter Umständen bereits nützlich sein, aber wir können die oben gemachten Beispiele noch effizienter implementieren.
 
-## Unser erstes richtiges Programm
 Dafür werden wir nun erstmals in die Programmieransicht wechseln. 
 
 Um zur Programmieransicht zu gelangen benutze die Taste "ESC" oben links auf der Tastatur.
@@ -392,6 +391,69 @@ end
 4. warum sehen wir den Spieler am Anfang, aber nur kurz?
 
 ## update und draw Funktionen
+Wir haben im letzten Kapitel bereits die Funktion `_draw` benutzt die mit 30fps aufgerufen wird. Das heisst 30 mal die Sekunde. Es gibt neben `_draw` noch zwei weitere Funktionen.
+
+1. _init (läuft am anfang einmal)
+1. _draw (auf den Bildschirm zeichnen)
+2. _update (hier findet unsere Gamelogik statt)
+
+Diese drei Funktionen zusammen können unseren ganzen Spiele code beinhalten. Im folgenden werden wir sie dazu brauchen um unseren Spieler zu bewegen.
+
+## Schritt für Schritt zum bewegten Spieler
+1. lösche allen Code der momentan im Code editoren ist.
+2. Als erstes definieren wir wieder die beiden Variabeln für die Spieler position. Beachte dass wir sie dieses mal mit dem Wert 0 initialisieren.
+```lua
+player_x = 0 
+player_y = 0
+```
+3. Nun verwenden wir darunter die `_init` funktion um den Spieler in die Mitte des Bildschirms zu setzen.
+```lua
+function _init()
+ player_x = 60
+ player_y = 60
+end
+```
+4. Als nächstes fügen wir die `_update` funktion hinzu mit dem Code der den Spieler in X richtung (nach rechts) bewegen wird
+```lua
+function _update()
+ player_x = player_x + 1
+end
+```
+5. Schlussendlich fehlt noch unsere altbekannte `_draw` funktion
+```lua
+function _draw()
+ cls()
+ spr(1,player_x,player_y)
+end
+```
+6. Was erwartet ihr passiert nun wenn ihr das Spiel laufen lasst?
+7. finden wir es mit `CTRL + S` und `CTRL + R` heraus.
+
+>Falls ihr einen Fehler bekommt oder sich der Spieler nicht bewegt, vergleicht einmal den Code unten mit eurem. Zum besseren Verständniss habe ich mit `--` kommentare hinzugefügt. Dass sind Texte die Pico8 ignoriert und die irh verwenden könnt um Notizen in eurem Code zu haben und Dinge (für später?) zu dokumentieren.
+
+>Tipp in meinem aktuellen Steam Spiel befinden sich ganz viele Kommentare die mir schon oft das Leben gerettet haben ;-)
+
+```lua
+player_x = 0 
+player_y = 0
+
+--diese function laeuft am anfang des spiels einmal durch
+function _init()
+ player_x = 60
+ player_y = 60
+end
+
+--diese function wird abwechslungsweise mit _draw 30 mal pro sekunde ausgefuehrt
+function _update()
+ player_x = player_x + 1 --vergroessere x um 1 mit jedem frame
+end
+
+--diese function wird abwechslungsweise mit _update 30 mal pro sekunde ausgefuehrt
+function _draw()
+ cls() --bildschirm leeren
+ spr(1,player_x,player_y)
+end
+```
 
 # Funktionen allgemein
 
@@ -405,9 +467,13 @@ end
 
 # Punkte und UI
 
+# Main menu
+
 # Highscore
 
 # Explosionen (Bonus Kapitel)
+
+# Hintergrund (Bonus Kapitel 2)
 
 ## Pico8 Cheatsheet (Spickzettel)
 
