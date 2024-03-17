@@ -455,9 +455,134 @@ function _draw()
 end
 ```
 
+# Tastatur input
+Wir wissen nun wie wir unseren Spieler bewegen können. Die Bewegung ist zugegebenermassen ein wenig langweillig. Was fehlt ist dass wir den Spieler kontrollieren können. Wir brauchen Informationen welche Tasten unser (menschlicher) Spieler betätigt. Lass uns doch kurz anschauen welche Taste wir bei Pico8 zur verfügung haben.
+
+Hier möchte nun zum ersten mal auf das Pico8 Cheatsheet (zu deutsch Spickzettel) hinweisen in dem die wichtigsten Befehle und Funktionen der Engine aufgelistet sind. 
+
+Online findet ihr diesen Spickzettel hier <h4 align="center"> click me --> <a href="https://www.lexaloffle.com/bbs/?tid=28207">Cheat sheet</a> <-- click me</h4>. Ich habe jedoch auch eine Kopie auf der online version dieses Scripts hinzugefügt. Im folgenden werde ich jeweils jene Auschnitte abbilden die wir gerade benötigen.
+
+<div align="center">
+<img  src="images/step-by-step/13_controlls.png" style="max-width: 300px;">
+</div>
+
+Wir sehen hier zwei Funktionen
+
+- btn(...) `button (down)` (ist immer "true" wenn der Button lange gedrückt wird)
+- btnp(...) `button pressed` (wird nur einmal kurz "true" sein)
+
+Oben sehen wir welche Taste für was benutzt wird.
+
+```lua
+local up = btn(2)       --Pfeiltaste ^
+local left = btn(0)     --Pfeiltaste > 
+local down = btn(3)     --Pfeiltaste v
+local right = btn(4)    --Pfeiltaste >
+
+local buttonO = btn(4)  --"C" auf der Tastatur
+local buttonX = btn(5)  --"X" auf der Tastatur
+```
+
+lass uns dass einmal testen. Dazu könnt ihr getrost den Code in eurem Programm nocheinmal überschreiben ;-)
+
+```lua
+--diese funktion einfach mal kopieren ;-)
+function print_input(name,btnId)
+    if btn(btnId) then 
+        print(name..": true")
+    else
+        print(name..": false")
+    end
+end
+
+function _draw()
+    cls()
+    print_input("up",2)
+    print_input("left",0)
+    print_input("down",3)
+    print_input("right",1)
+
+    print_input("C",4)
+    print_input("X",5)
+end
+
+--kein _update und keine _init function!!!
+```
+
+Wenn ihr alles richtig kopiert hat sollte das laufende Programm so aussehen (in meinem Beispiel sind eine Pfeiltaste und X gerade gedrückt).
+
+<div align="center">
+<img  src="images/step-by-step/14_btn_visualiser.png" style="max-width: 300px;">
+</div>
+
+Nun was macht dieser Code genau? Lass ihn uns einmal genauer unter die Lupe nehmen.
+
+Ich habe da ein wenig vorgegriffen und eine Funktion implementiert. Funktionen sind Programmcode den wir mehrmals verwenden möchten. Vorweg könnt ihr den Teil einmal ignorieren, was Funktionen genau sind und wie man sie verwendet werrden wir im nächsten Kapitel genauer anschauen.
+
+## Die Input Funktion btn / btnp
+
+Die Funktion btn lässt uns auslesen ob eine der verfügbaren Tasten gedrückt ist. Wir werden dass nun an einem einfacheren beispiel zeigen.
+
+Dazu brauchen wir einen kurzen Einblick in boolsche Variabeln. Zu deutsch Variabeln die entweder 0 oder 1, ja / nein, oder im Progammierumfeld auch "TRUE" oder "FALSE" genannt (zu deutsch Wahr/Falsch). 
+
+Wenn ich jetzt einen von euch Frage ob er gerade die Taste X auf seinem Laptop drückt, wird er mir mit ja oder nein antworten - und nein vielleicht ist keine plausible Antwort ;-).
+
+Das gleiche macht die Funtion btn. Lass uns mal sehen wie das im code aussieht.
+
+Das unten ist wieder ein minimalistisches Beispiel.
+
+```lua
+function _update()
+ print(btn(5)) --x taste
+end
+```
+
+Wenn wir dieses laufen lassen wird pico8 immer false anzeigen, ausser wenn wir die X Taste gedrückt haben. Dann wird true angezeigt.
+
+>Fazit: die Funtion btn(5) fragt "den Computer" ob die Taste X gedrückt worden ist
+
+## Den Spieler mit den Pfeiltasten bewegen
+Wie im vorherigen Kapitel gelernt, können wir mit btn abfragen ob Tasten gedrückt sind. Um die Pfeiltasten abzufragen können wir laut Pico8 Cheat sheet die Adressen 0-3 abfragen.
+
+Wir wissen nun wie wir diese Information erlangen können. Was noch fehlt ist wie wir dem Computer sagen sollen was er mit dieser Funktion anfangen soll. 
+
+Denken wir uns einmal in folgende Lage hinein. Wir haben zwei Schüler Karli und Lotti. Karli steht mit dem Rücken zu Lotti, Lotti hat eine Tatatur in der Hand. Nun sollen Lotti und Karli unser Programm simulieren.
+
+Lotti wird auf der Tastatur eine der Pfeiltasten drücken. Lotti darf aber nichts sagen ausser ja und nein. 
+
+Wie kann nun Karli wissen welche der Tasten betätigt wurde? 
+
+Karli muss Lotti fragen: "..." Lotti -> Nein / Ja
+
+> lass uns zusammen mal eine Antwort finden
+
+So bei unserem Computer ist es genau gleich. Ein Programm kann nicht wissen was für eine Taste benutzt wird wenn es den Computer nicht fragt ob die Taste gedrückt ist oder nicht. Unsere Funktion btn(5) ist diese Frage für die Taste "X".
+
+Nun wenn Karli wissen möchte wohin er sich bewegen soll muss er für alle Richtungen fragen: 
+
+1. "ist die Pfeiltaste - hoch gedrückt"
+2. "ist die Pfeiltaste - link gedrückt"
+3. "ist die Pfeiltaste - unten gedrückt"
+4. "ist die Pfeiltaste - rechts gedrückt"
+
+Und dann WENN eine der Taste gedrückt ist, bewegt sich Karli in die Richtung.
+
+Dass heisst in unserer _update Funktion formulieren wir jetzt einmal diese vier Fragen.
+
+```lua
+function _update()
+    local up = btn(2)       --Pfeiltaste ^
+    local left = btn(0)     --Pfeiltaste > 
+    local down = btn(3)     --Pfeiltaste v
+    local right = btn(4)    --Pfeiltaste >
+end
+
+```
+
+
 # Funktionen allgemein
 
-# Tastatur input
+
 
 # Kollision
 
