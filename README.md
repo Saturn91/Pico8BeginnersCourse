@@ -567,7 +567,7 @@ Nun wenn Karli wissen möchte wohin er sich bewegen soll muss er für alle Richt
 
 Und dann WENN eine der Taste gedrückt ist, bewegt sich Karli in die Richtung.
 
-Dass heisst in unserer _update Funktion formulieren wir jetzt einmal diese vier Fragen.
+Dass heisst in unserer _update Funktion formulieren wir jetzt einmal diese vier Fragen. Aber da wir nur die Fragen stellen wird noch nichts passieren ;-).
 
 ```lua
 function _update()
@@ -576,8 +576,10 @@ function _update()
     local down = btn(3)     --Pfeiltaste v
     local right = btn(4)    --Pfeiltaste >
 end
-
 ```
+
+## Das Programmatische WENN (if)
+
 
 
 # Funktionen allgemein
