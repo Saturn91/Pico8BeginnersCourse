@@ -579,16 +579,297 @@ end
 ```
 
 ## Das Programmatische WENN (if)
+Wir wenden uns nun einer sehr mächtigen grund Operation im Programmieren zu und zwar `if` englisch für "WENN". Ich gebe euch einmal ein Beispiel.
+
+```lua
+local myVariable1 = true
+local myVariable2 = false
+
+if myVariable1 then
+ print("variable 1")
+end
+
+if myVariable2 then
+ print("variable 2")
+end
+```
+
+> Was denkt ihr wird von unserem Programm ausgegeben wenn wir dass laufen lassen.
+
+a) "variable 1"
+
+b) "variable 2"
+
+c) "variable 1" gefolgt von "variable 2"
 
 
+> Und nun wo wir wissen was, warum?
+
+Mit der `if` Operation können wir Code laufen oder nicht laufen lassen WENN Bedingungen erfüllt oder eben nicht erfüllt sind.
+
+Kommen wir noch einmal zurück zu unserem Beispiel mit Lotti und Karli. 
+- Karli möchte wissen WENN er laufen darf
+- Karli fragt ob Btn "up" gedrückt ist, WENN der gedrückt wäre dürfte er laufen oder?
+
+Dann schauen wir uns doch einmal folgenden Code an.
+
+```lua
+local playerX = 0
+local playerY = 0
+
+function _init()
+ playerX = 64
+ playerY = 64
+end
+
+function _update()
+ local up = btn(2)
+ local left = btn(0)
+ local down = btn(3)
+ local right = btn(1)
+
+ if up then
+  --TODO move player up
+ end
+
+ if left then
+  --TODO move player left
+ end
+
+ if down then
+  --TODO move player down
+ end
+
+ if right then
+  --TODO move player right
+ end
+end
+
+function _draw()
+ cls()
+ spr(1,playerX,playerY)
+end
+
+```
+
+> basierend auf obigem Code und dem Wissen dass wir bereits haben... wie bewegen wir nun den Spieler nach rechts wenn die Taste "right" gedrückt wurde?
+
+## Lösung
+Im folgenden erweitern wir unseren bisherigen Code soweit, dass der Spieler sich komplett in alle 4 Richtungen bewegen kann.
+
+
+```lua
+local playerX = 0
+local playerY = 0
+
+function _init()
+ playerX = 64
+ playerY = 64
+end
+
+function _update()
+ local up = btn(2)
+ local left = btn(0)
+ local down = btn(3)
+ local right = btn(1)
+
+ if up then
+  playerY = playerY -1
+ end
+
+ if left then
+  playerX = playerX -1
+ end
+
+ if down then
+  playerY = playerY +1
+ end
+
+ if right then
+  playerX = playerX +1
+ end
+end
+
+function _draw()
+ cls()
+ spr(1,playerX,playerY)
+end
+
+```
+
+Dass ist jetz noch ein wenig langsam, wir können jetzt noch eine Geschwindigkeitsvariable `speed` einbauen die die Geschiwndigkeit des Spielers vorgibt.
+
+Wir fügen also oben eine Variable `speed` hinzu und setzen sie auf 2
+
+```lua
+local speed = 2
+```
+
+> wo müssen wir diese Variabel nun hinzufügen?
 
 # Funktionen allgemein
+Im nächsten Kapitel werden wir anfangen unser nächstes Feature einzubauen. Den Sateliten, den es einzusammeln gilt. bevor wir dass aber machen möchte ich euch das Konzept von Funktionen näher bringen, so dass wir unseren Code ein wenig besser aufräumen können.
+
+Lass uns wieder einmal ein Stück code anschauen.
+
+```lua
+--funktion definieren
+function sayHello()
+ print("hello")
+end
+
+--funktion verwenden
+sayHello()
+```
+
+> Was denkt ihr macht dieser Code?
+
+Eine Funktion kann verwendet werden um ein Codestück zu "verpacken" so dass man es an einer anderen Stelle wieder verwenden kann. 
+
+Im obigen Beispiel macht dass noch nicht allzu viel Sinn, lass uns nun ein Beispiel anschauen bei dem das mehr Sinn ergibt. Interessant wird es nämlich wenn wir anfangen Parameter zu übergeben.
+
+```lua
+function sayHello(name)
+    print("hello "..name)
+end
+
+sayHello("manuel")
+sayHello("lotti")
+sayHello("karli")
+```
+
+> Wie sieht das Resultat dieses Programm code aus?
 
 
 
-# Kollision
+<div align="center">
+<img  src="images/step-by-step/15_functions_with_params.png" style="max-width: 300px;">
+</div>
+
+Wir können also Funktionen Parameter zu übergeben, um den selben code mit verschiedenen Werten laufen zu lassen. Dies werden wir später noch benötigen.
+
+## Wir räumen auf!
+Wir werden jetzt Funtionen verwenden um unseren Code ein wenig aufzuräumen.
+Das Ziel ist es dass all unser "Player" code in einem eigenen File sein wird.
+
+Um ein neues File zu erstellen stellt sicher dass ihr wieder im Editoren seid.
+
+Nun ersetzen wir allen code den wir haben mit dieser leeren Vorgabe.
+
+```lua
+--main
+
+function _init()
+
+end
+
+function _update()
+
+end
+
+function _draw()
+
+end
+```
+
+>beachtet dass auch die hier bekannten 3 Funktionen eben Funktionen sind! Sie müssen aber nicht von uns aufgerufen werden, sondern pico8 macht das für uns. `_init` einmal am Anfang und dann abwechselnd `_update` und `_draw`
+
+>beachtet auch den Kommentar `--main` dieser muss ganz oben stehen, er definiert den "Namen" unserer momentanen Datei. Dies wird euch später helfen zu identifizieren welcher Code wohin kommt.
+
+### Die Player Datei
+Nun fügen wir ein neues "Tab" oder eine neue "Datei" hinzu. Betätigt dazu dass kleine plus ganz oben.
+
+<div align="center">
+<img  src="images/step-by-step/16_add_new_tab.png" style="max-width: 300px;">
+</div>
+
+Danach solltest du ein neues leeres Tab sehen `1` sehen.
+
+<div align="center">
+<img  src="images/step-by-step/17_new_empty_tab.png" style="max-width: 300px;">
+</div>
+
+Wir kopieren folgenden Code in dieses Tab hinein. Vieles davon dürfte euch bereits bekannt vorkommen.
+
+```lua
+--player
+local playerX = 0
+local playerY = 0
+local playerSpeed = 2
+
+function init_player()
+ playerX = 64
+ playerY = 64
+end
+
+function update_player()
+ local up = btn(2)
+ local left = btn(0)
+ local down = btn(3)
+ local right = btn(1)
+
+ if up then
+  playerY = playerY - playerSpeed
+ end
+
+ if left then
+  playerX = playerX - playerSpeed
+ end
+
+ if down then
+  playerY = playerY + playerSpeed
+ end
+
+ if right then
+  playerX = playerX + playerSpeed
+ end
+end
+
+function draw_player()
+ cls()
+ spr(1,playerX,playerY)
+end
+```
+
+>beachte auch hier wieder den Kommentar `--player` ganz oben
+
+Wenn ihr nun alles richtig gemacht habt solltet ihr nun wenn ihr nun die Maus über die beiden Tabs bewegt, jeweils ein Anzeige sehen die euch den Inhalt der beiden obersten Kommentare "player" und "main" anzeigt. Damit könnt ihr später schnell herausfinden wo ihr welchen Code finden könnt. Wie schon einmal erwähnt, Kommentare machen euch das Leben einfacher.
+
+<div align="center">
+<img  src="images/step-by-step/18_hover_tab.png" style="max-width: 300px;">
+</div>
+
+Dieser Code wird nun noch nicht funktionieren. Wir müssen den Spielercode noch verwenden. Genau genommen müssen wir die drei Funktionen `init_player` `update_player` und `draw_player` noch aufrufen.
+
+> Wo müssen wir die drei Funktionen im Player file wohl aufrufen?
+
+### Das neue main file
+```lua
+--main
+
+function _init()
+ init_player()
+end
+
+function _update()
+ update_player()
+end
+
+function _draw()
+ draw_player()
+end
+```
+
+## Fazit Funktionen
+> Funktionen sind code den man mehrmals aufrufen kann
+
+> Funktionen erlauben es uns den Code aufzuräumen
+
+> Funktionen können Parameter übernehmen die man in der Funktion verändern kann
 
 # zufällige Position
+
+# Kollision
 
 # SFX
 
