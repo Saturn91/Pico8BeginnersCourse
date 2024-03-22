@@ -868,6 +868,106 @@ end
 > Funktionen können Parameter übernehmen die man in der Funktion verändern kann
 
 # zufällige Position
+Nun schreiben wir eine Funktion mit der wir eine zufällige Position generieren können. Diese werden wir später werwenden um:
+
+1. Satelitten (unsere Punkte) im Level zu platzieren
+2. Sterne im Hintergrund zu platzieren.
+
+Nun fragt ihr euch vielleicht wie man mit einem Computer Programm zufällige Dinge generieren kann. Lass uns einmal versuchen wie ein richtiger Programmierer vorzugehen und suchen kurz im Internet nach einer Lösung.
+
+> Aufgabe: Googelt mal nach wie man mit Computern zufällige Dinge generieren kann. Ich empfehle euch noch nicht weiter zu lesen und selbst einmal zu versuchen. In 10min lösen wir es auf.
+
+Stichworte:
+- Zufall in Programmen
+- Zufall in Spieleprogrammieren
+- Zufallszahlen in der Programmierung
+- Wie kann ich eine Ja/Nein frage zufällig lösen in der Programmierung
+- english: Random events in games
+- english: Random numbers
+- english: how can I answer a yes / no question in programming
+
+Machmal hilft es den Namen von bekannten Game engines mit der Frage zu verbinden.
+
+Etwa: wie generiert man etwas zuälliges in Pico8. (wahlweise auch Unity / Unreal als Engine einsetzen)
+
+> im Programmieren hilft es oft auf englisch zu suchen wenn man auf Deutsch nichts findet
+
+> nichts gefunden? Überlege dir einmal wie du für die Aufgabenstellung "zufällige Position in Pico8" Chat gpt fragen würdest
+
+ <h4 align="center"> click me --> <a href="https://www.lexaloffle.com/bbs/?tid=140996">Handy 10min timer :D</a> <-- click me</h4>
+
+<div style="page-break-after: always;"></div>
+
+## Lösung
+
+> hey nicht schummeln :D sind die 10min schon um?
+
+> lass uns einmal zusammen sammeln bevor wir fortfahren.
+
+1. es gibt zufallszahlen in der Programmierung. egal in welcher Sprache es wird immer eine funktion geben welche eine zufällige Zahl zwischen 0 und 1 ausgibt (z.B. 0.765443)
+2. Diese Funktionen heissen in der Regel z.B. math.random(), random() Random.new() oder ähnlichhes.
+3. In Pico8 heisst die Funktion rnd().
+
+> lass uns einmal eine Random funktion ausprobieren. Dazu könnt ihr mit "ESC" einfach einmal ins temrinal von pico8 gehen.
+
+Im Terminal tippt ihr einmal folgenden Code ein:
+
+`print(rnd())` + Enter, lasst dies etwa 3-4 mal laufen
+
+> Tipp mit der Pfeiltaste nach oben könnt ihr nach dem ausführen den letzten Command nocheinmal wiederholen
+
+<div align="center">
+<img  src="images/step-by-step/19_rnd.png" style="max-width: 300px;">
+</div>
+
+In meinem Fall haben wir zufällige Zahlen erhalten zwischen 0 und 1. Diess können wir nun programmatisch nutzen um Fragen zu beantworten.
+
+Unten ein einfaches Beispiel:
+
+`if rnd() > 0.5 then print("ja") else print("nein") end`
+
+> bevor wir das laufen lassen, was macht dieser Code wohl?
+
+<div style="page-break-after: always;"></div>
+
+## Lösung 
+wenn wir diesen Code laufen lassen dann erhalten wir entweder die Ausgabe "ja" oder "nein". Ich habe das unten ein paar mal laufen lassen.
+
+<div align="center">
+<img  src="images/step-by-step/20_rnd_yes_no.png" style="max-width: 300px;">
+</div>
+
+> wenn ihr dass nächste mal eine Zufallsantwort benötigt :D so gehts.
+
+Um unsere "get random position funktion" zu programmieren brauchen wir aber eine andere Funktion. Lass uns die im Folgenden Abschnitt Programmieren.
+
+## Zufalls Positionen
+In diesem Abschnitt schreiben wir endlich die Funktion die es uns erlaubt Dinge zufällig auf dem Bildschirm zu platzieren. Das ist im Grunde ganz einfach wenn wir die `rnd` Funktion verwenden.
+
+Ziele:
+1. verstehen was eine Zufällige Position genau ist
+2. Zahl zwischen 0 und 128
+3. zufällige POsition generieren
+4. Unsere Funktion wird wie folgt aussehen.
+
+```lua
+--diese funktion gibt eine zufällige Position auf dem Bildschirm zurück
+--verwendet wird sie so: 
+--pos = getRndScreenPos()
+--pos.x und pos.y können dann verwendet werden um etwas auf dem Bildschirm zu zeichnen
+function getRndScreenPos()
+    xPos = ...
+    yPos = ...
+    --TODO ein wenig code...
+    return {x=xPos,y=yPos}
+end
+```
+
+### Zufällige Bildschirm Position verstehen
+
+### Zahl zwischen 0 und 128 generieren
+
+### Funktion finialisieren
 
 # Kollision
 
