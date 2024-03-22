@@ -860,12 +860,61 @@ function _draw()
 end
 ```
 
+## Der Rückgabewert einer Funktion
+Funktionen können auch wie Variabeln einen Wert zurückgeben. Am einfachsten kann man das mit einem Beispiel zeigen.
+
+```lua
+function add(a, b) --english für "plus" order +
+    return a + b
+end
+
+print(add(1,3)) --dies wird "4" ausgeben
+```
+
+Dies wir oft verwendet um Brechnungen anzustellen. Wir schauen uns dazu später noch ein Beispiel (`get_rnd_screen_pos()` welche immer eine Position auf dem Bildschirm zurückgeben wird).
+
+### return wird die Funktion immer beenden
+> wichtig zu verstehn ist, dass eine Funktion immer nur einen Wert zurückgeben kann. Schauen wir uns dazu mal das untere Beispiel an:
+
+```lua
+function test()
+    return 1    --diese Funktion wird immer am 1. return beendet, 
+                --der 1. Wert wird in diesem Fall zurückgegeben
+    return 2
+    return 3
+end
+
+local value = test() --value wird immer 1 sein in diesem Beispiel
+```
+
+Es mag Situationen geben in denen es Sinn machen kann mehrere `return` werte zu haben. Dazu braucht es aber in der Regel ein wenig Logik um dies zu ermöglichen. Ein Beispiel sind zum `if` statements. Wir werden dies später benötigen um zu überprüfen ob unser Raumschiff mit dem Sateliten "kollidiert" um Punkte zu vergeben.
+
+Unten ein einfaches Beispiel
+
+```lua
+function player_colides_with_satelite()
+    local playerCollides = --TODO logik
+
+    --diese Funktion wird hier nur mit TRUE beended wenn der Spieler mit dem Satelitten kollidiert
+    if playerCollides then return true end
+
+    --Nur wenn das obere "IF" dir Funktion mit true beended hat wird hier mit FALSE beendet
+    return false
+end
+
+--isPlayerReallyColliding wird manchmal true und manchmal falsch sein
+local isPlayerReallyColliding = player_colides_with_satelite()
+```
+
+
 ## Fazit Funktionen
 > Funktionen sind code den man mehrmals aufrufen kann
 
 > Funktionen erlauben es uns den Code aufzuräumen
 
 > Funktionen können Parameter übernehmen die man in der Funktion verändern kann
+
+> Funktionen können EINEN Wert zurückgeben, die Rückgabe eines Wertes beendet die Funktion. Der Code darin stoppt.
 
 # zufällige Position
 Nun schreiben wir eine Funktion mit der wir eine zufällige Position generieren können. Diese werden wir später werwenden um:
@@ -944,7 +993,13 @@ Um unsere "get random position funktion" zu programmieren brauchen wir aber eine
 ## Zufalls Positionen
 In diesem Abschnitt schreiben wir endlich die Funktion die es uns erlaubt Dinge zufällig auf dem Bildschirm zu platzieren. Das ist im Grunde ganz einfach wenn wir die `rnd` Funktion verwenden.
 
-Ziele:
+Das Endresultat wird so aussehen:
+
+<div align="center">
+<img  src="images/step-by-step/21_rnd_stars.png" style="max-width: 300px;">
+</div>
+
+Zwischenziele:
 1. verstehen was eine Zufällige Position genau ist
 2. Zahl zwischen 0 und 128
 3. zufällige POsition generieren
@@ -955,7 +1010,7 @@ Ziele:
 --verwendet wird sie so: 
 --pos = getRndScreenPos()
 --pos.x und pos.y können dann verwendet werden um etwas auf dem Bildschirm zu zeichnen
-function getRndScreenPos()
+function get_rnd_screen_pos()
     xPos = ...
     yPos = ...
     --TODO ein wenig code...
@@ -964,10 +1019,169 @@ end
 ```
 
 ### Zufällige Bildschirm Position verstehen
+Ok wie definiert sich ein Position auf dem Bildschirm in pico8? Auch dazu haben wir einen Hinweis auf dem Cheatsheet.
+
+<div align="center">
+<img  src="images/step-by-step/22_screen_size.png" style="max-width: 300px;">
+</div>
+
+Im Bild oben findet ihr ein grünes und ein gelbes Pixel. eines Oben links (0,0) und eines unten rechts (127,127).
+
+> Hinweis: merkt euch dass y von oben nach unten geht, aber wie jemand der schreibt oben startet! Grössere Y Positionen sind weiter unten. 
+
+> Hinweis merkt euch dass x von links nach rechts verläuft, wie beim Schreiben. started ihr oben links. Grössere X Positionen sind weiter rechts.
+
+Basierend auf den oben genannten Tatsachen können wir folgendes Zusammenfassen:
+
+1. wir wollen zufällige Positionen zwischen 0,0 und 127,127 generieren um unsere Sterne zufällig auf dem Bildschirm zu verteilen.
+2. X geht von links nach rechts
+3. Y geht von Oben nach unten
+
 
 ### Zahl zwischen 0 und 128 generieren
+Ok wie wissen jetzt was wir brauchen. Jeweis eine zufällige Zahl zwischen 0 und 127 für beide Achsen X/Y.
 
-### Funktion finialisieren
+Wir wissen auch schon dass wir mit `rnd` Zahlen von 0-1 generieren können... Wie kriegen wir aus 0-1 eine Zahl 0-127? 
+
+> Wer findet die Lösung ohne zu spicken. Vielleicht hilft euch ein Dreisatz?
+
+> Lösung: 0-1 kann ganz einfach in 0-127 verwandelt werden. Wir multiplizieren einfach 127 zum resultat
+
+Im Code sieht dass dann so aus `*` ist gleich bedeutend mit einer Multiplikation `2x3=6` lässt sich mit Lua schreiben als `local a = 2*3` wobei a dann den Wert 6 hat.
+
+> Diese Funktion platzieren wir in einem neuen Tab "--util" was auf english soviel heisst wir Werkzeuge. Hier platzieren wir Funktionen die wir überall im code benutzen wollen. 
+
+```lua
+--util
+
+function get_rnd_screen_pos()
+	return  {
+		x = rnd() * 127,
+		y = rnd() * 127
+	}
+end
+```
+
+> im oberen code verwende ich eine neue Art Variablen zu deklarieren. Anstelle von einer seperaten Variable X (z.B. `StarX`) und Y (z.B. `StarY`) können wir so die Position direkt in einem "object" oder auch einer Variable unterbringen.
+
+> wenn `pos = {x=1,y=2}` dann kann ich später mit pos.x und pos.y die entsprechenden Werte auslesen. Dies erleichtert uns die Arbeit, weil wir so nur eine Variabel handeln müssen.
+
+> Ausserdem verwenden wir das erste mal `return` dies wird verwendet, damnit die Funktion `get_rnd_screen_pos()` verwendet werden kann um eine neue Position zu generieren. Dass sieht dann so aus: `newPos = get_rnd_screen_pos()` nun sind in newPos.x und newPos.y jeweils ein Wert zwischen 0-127 gespeichert
+
+Dass war jetzt zugegebenermassen ein wenig viel auf einmal. Aber lass uns dass noch einmal langsam zusammen fassen.
+
+## Sterne platzieren
+Nun können wir mit der Funktion Sterne im Hintergrund platzieren. Jetzt wäre noch ein guter Zeitpunkt um noch ein paar Sterne im Graphics Menu zu zeichen wenn ihr dass noch nicht gemacht habt. Bei mir sieht dass am Ende so aus:
+
+<div align="center">
+<img  src="images/step-by-step/23_stars_drawn.png" style="max-width: 300px;">
+</div>
+
+> beachtet dass in meinem Beispiel 4 Sternen (bzw. Hintergrund Grafiken, ich habe noch einen Nebel hinzugefügt) vorhanden sind. Diese sollten auch genau an den Positionen sein wie oben dargestellt. Davon geht zumindest mein Code aus. Habt ihr mehr oder weniger Sterne müssen wir den Code ein wenig anpassen.
+
+> Mein Sternen sind auf Sprite: 3,4,5 und 6 (es ist wichtig dass sie nacheinander sind - auch wenn ihr mehr oder weniger habt)
+
+Zeichnen wir fürs Erste einmal einen Stern.
+
+Dazu würde ich wieder ein neues Tab hinzufügen diesesmal "--background" für Hintergrund.
+
+```lua
+--background
+
+star = {} --dies erlaubt uns eine leere Container variable (offiziell Table) zu erstelln die Dinge wie ".pos" oder .sprite erlaubt
+
+function get_rnd_star()
+    return ceil(rnd() * 4) + 2 --dies wählt eine Nummer [3-6] aus (die sternen sprites)
+end
+
+function init_bg()
+    --get local pos
+    star.pos = get_rnd_screen_pos()
+    star.sprite = get_rnd_star()
+end
+
+function draw_bg()
+    --draw star
+    spr(star.sprite,star.pos.x,star.pos.y)
+end
+
+--update brauch der BG keins weil sich nichts verändern wird
+
+```
+
+Das Resultat sollte nun so ausehen.
+
+<div align="center">
+<img  src="images/step-by-step/24_rnd_star_drawn.png" style="max-width: 300px;">
+</div>
+
+Nun ist ein Stern aber ein wenig langweilig. wir wollen mehr.
+
+Der einfachste Weg wäre jetzt folgender:
+
+```lua
+--background
+
+star1 = {}
+star2 = {}
+
+function get_rnd_star()
+    return ceil(rnd() * 4) + 2 --dies wählt eine Nummer [3-6] aus (die sternen sprites)
+end
+
+function init_bg()
+    --get local pos
+    star1.pos = get_rnd_screen_pos()
+    star1.sprite = get_rnd_star()
+    star2.pos = get_rnd_screen_pos()
+    star2.sprite = get_rnd_star()
+end
+
+function draw_bg()
+    --draw star
+    spr(star1.sprite,star1.pos.x,star1.pos.y)
+    spr(star2.sprite,star2.pos.x,star2.pos.y)
+end
+
+--update brauch der BG keins weil sich nichts verändern wird
+
+```
+
+> Dies könnten wir jetzt solange machen bis wir genug Sterne zusammen haben, aber wie schon einmal gesagt sind Programmierer faul. So faul, dass sie sich die Arbeit gemacht haben sogenante FOR loops zu programmieren. Diese lassen den Nutzer den genau gleichen Code mehrmals laufen zu lassen.
+
+### Die FOR Schlaufe oder wie man Code z.B. 10x wiederholt
+Gebt einmal den unten stehenden code ins Terminal ein:
+```lua
+for i=1,3 do print(i) end
+```
+
+Mein resultat sieht so aus. Wir sehen das der print Befehl 3x ausgeführt wurde und zwar von 1-3 (und i hat dann jeweils diesen Wert). Der code in der For loop wurde 3x wiederholt.
+
+<div align="center">
+<img  src="images/step-by-step/25_for_terminal.png" style="max-width: 300px;">
+</div>
+
+Wir kommen darauf gleich noch einmal zurück.
+
+### Arrays oder Listen
+
+Wir können nun ebenfalls sogenannte Listen im Code haben. Listen sind variabeln die eine Anzahl Variabeln vom gleichen Typ speichern können. Klingt erstmal kompliziert, aber das Folgende Beispiel sollte es euch anschaulich erklären.
+
+(bitte im Terminal eingeben)
+
+```lua
+names = {"Karli", "Lotti", "Hugo"} + ENTER
+for i=1,3 do print(names[i]) end + ENTER
+```
+<div align="center">
+<img  src="images/step-by-step/26_array.png" style="max-width: 300px;">
+</div>
+
+Wir können also Listen von Werten erstellen und diese mit einer For loop verwenden.
+
+Dass machen wir jetzt mit unseren Sternen. In `init_bg` werden wir die Tabelle füllen. Und in `draw_init` zeichnen wir die Tabelle dann.
+
+
 
 # Kollision
 
