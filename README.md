@@ -1213,7 +1213,23 @@ end
 ```
 
 ### Player Kollider implementieren
-So nun gilt es nur noch das gelernte zu kombinieren
+So nun gilt es nur noch das gelernte zu kombinieren dazu wollen wir folgende Zwischenscrhitte erreichen:
+1. Einen Kreis (`circ`) am richtigen Ort Zeichnen um den Player und den Sateliten (unten ein Beispiel für den Player)
+
+<div align="center">
+<img  src="images/step-by-step/31_circle_collision.png" style="max-width: 300px;">
+</div>
+
+2. Die beiden Kreise auf kollision überprüfen mit der gerade importierten Funktion `circ_col`
+3. Die Kreise zwar nicht mehr zeichnen, aber weiterhin auf Kollision überprüfen.
+4. Wenn der Spieler mit dem Sateliten kollidert eine Funktion ausführen welche den Text `Satelite gefangen!` auf dem Bildschirm anzeigt
+5. Den Sateliten an einem anderen Ort auf dem Bildschirm platzieren.
+
+#### Implementation
+Schritt 1 Zwei Kreise zeichnen (Zur Erinnerung: `circ(xPos,yPos,radius)`) an der Position des Spielers und des Sateliten. Wie machen wir dass?
+
+> In der Klasse besprechen und oder selbst versuchen, danach weiter im Text ;-)
+
 
 
 ## Sterne platzieren
