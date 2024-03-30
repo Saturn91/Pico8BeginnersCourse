@@ -13,7 +13,7 @@
     </br>
     Datum: 02.04.2024
     </br>
-    Thema: Kurs Spieleentwicklung mit Pico8
+    Thema: Kurs Spieleentwicklung mit Pico-8
     <br>
     </br>
     </br>
@@ -21,7 +21,7 @@
 
 
 <h1 align="center">
-Spieleentwicklung mit Pico8 2024 / Saturn91
+Spieleentwicklung mit Pico-8 2024 / Saturn91
 </h1>
 
 <div style="page-break-after: always;"></div>
@@ -34,11 +34,11 @@ Spieleentwicklung mit Pico8 2024 / Saturn91
 
     PICO-8 ist eine fantastische Konsole zum Erstellen, Teilen und Spielen von kleinen Spielen und anderen Computerprogrammen. Es fühlt sich an wie eine normale Konsole, läuft aber unter Windows/Mac/Linux. Beim Einschalten begrüßt dich das Gerät mit einer Kommandozeile, einer Reihe von Tools zur Erstellung von Cartridges und einem Online-Cartridge-Browser namens SPLORE.
 
-## Pico8 starten
-Wir verwenden heute die gratis online version von Pico8 die "Education" (oder zu Deutsch "Ausbildungs") version. Diese erlaubt uns das komplette Spiel zu erstellen und alle Featurees der Konsole zu verwenden, AUSSER das exportieren des Spiels als ".exe" file. Dies geht nur mit der bezahlten Version. Wer möchte kann sich am Ende des Tages bei mir melden und dann kann ich gerne dabei helfen eine Version zu erhalten.
+## Pico-8 starten
+Wir verwenden heute die gratis online version von Pico-8 die "Education" (oder zu Deutsch "Ausbildungs") version. Diese erlaubt uns das komplette Spiel zu erstellen und alle Featurees der Konsole zu verwenden, AUSSER das exportieren des Spiels als ".exe" file. Dies geht nur mit der bezahlten Version. Wer möchte kann sich am Ende des Tages bei mir melden und dann kann ich gerne dabei helfen eine Version zu erhalten.
 
 
-<h2 align="center"> click me --> <a href="https://www.pico-8-edu.com/">Pico8-edu link</a> <-- click me
+<h2 align="center"> click me --> <a href="https://www.pico-8-edu.com/">Pico-8-edu link</a> <-- click me
 <br>
 <br>
 <div align="center">
@@ -53,7 +53,7 @@ Wir verwenden heute die gratis online version von Pico8 die "Education" (oder zu
 </div>
 Eine Konsole ist salop gesagt was du als Nintendo Switch und oder PS4 kennt. Ein Gerät mit dem du (in der Regel) nur Spiele spielen kannst. Vielleicht hast du schon einmal gehört, dass Konsolen auf dem Computer "emuliert" werden können. Für ältere Konsolen (Gameboys, Gamecube, Nintendo64 etc...) findet man online sogenannte "Emulatoren" die es erlauben alte Spiele (z.B. das erste Pokemon) auf dem Rechner zu spielen. Statt einen Emulatoren zu benutzen könnte man in diesem Fall aber auch einfach auf den Flohmarkt oder Ebay gehen und sich das Originalgerät kaufen. Dies sind "echte" Konsolen.
 
-Eine Fantasy Konsole ist eine Konsole, für die es keine Hardware / Originalgeräte gibt. Es gibt nur den Emulator. Zep der Entwickler von Pico8 war ein grosser Fan vieler dieser Konsolen und hat sich mit Pico8 den Traum erfüllt selbst eine solche zu entwickeln.
+Eine Fantasy Konsole ist eine Konsole, für die es keine Hardware / Originalgeräte gibt. Es gibt nur den Emulator. Zep der Entwickler von Pico-8 war ein grosser Fan vieler dieser Konsolen und hat sich mit Pico-8 den Traum erfüllt selbst eine solche zu entwickeln.
 
 ## Komandozeile?
 Komandozeilen kennst du vielleicht aus "Hacker" Filmen und Serien. Sobald man eine solche offen hat, kann man seine Eltern und Geschwister stark beindrucken :D.
@@ -82,32 +82,32 @@ Ein paar Operationen die man mit der Komandozeile machen kann:
 
 Wie gesagt im Prinzip alles was auch über die grafische Oberfläche möglich ist.
 
-### Wie genau funktioniert die Kommandozeile in Pico8?
-Sobald man auf (pico8-edu)[https://www.pico-8-edu.com/] den play button gedrückt hat, kommt man in die Komandozeile von pico8. In der Komandozeile können nun verschiedene Komandos benutzt werden. Unten nur ein paar Beispiele die wir heute noch brauchen werden.
+### Wie genau funktioniert die Kommandozeile in Pico-8?
+Sobald man auf (Pico-8-edu)[https://www.pico-8-edu.com/] den play button gedrückt hat, kommt man in die Komandozeile von Pico-8. In der Komandozeile können nun verschiedene Komandos benutzt werden. Unten nur ein paar Beispiele die wir heute noch brauchen werden.
 
 1. `save mein_projekt` -> herunterladen des aktuellen projekts
 2. `load` -> File eexplorer öffnen um bestehende Datei von der Festplatte zu laden
 3. `load mein_projekt` -> öffnen der Datei "mein_projekt.p8" aus dem Download Ordner  
 
-## Pico8 Spiele bibliothek Splore (nur gekaufte version)
-Ein sehr interessanter Befehl ist `splore` der in pico8-edu leider nicht funktioniert. Mit diesem Befehl können die von aderen Usern programmierten Spiele gespielt werden.
+## Pico-8 Spiele bibliothek Splore (nur gekaufte version)
+Ein sehr interessanter Befehl ist `splore` der in Pico-8-edu leider nicht funktioniert. Mit diesem Befehl können die von aderen Usern programmierten Spiele gespielt werden.
 
 Dieser Befehl erlaubt es dir Spiele anderer Entwickler herunter zu laden, zu spielen und ihren Code zu studieren / kopieren.
 
-## Was kann Pico8 (und was nicht)
-Pico8 ist eine moderne Game engine, die 8Bit systeme emuliert. Auf gut Deutsch, eine moderne Game engine die so tut als sei sie ein Computer der vor etwa 30 Jahren gebaut wurde.
+## Was kann Pico-8 (und was nicht)
+Pico-8 ist eine moderne Game engine, die 8Bit systeme emuliert. Auf gut Deutsch, eine moderne Game engine die so tut als sei sie ein Computer der vor etwa 30 Jahren gebaut wurde.
 
-Dass man mit einem 30 Jahren alten Computer kein Fortnite oder minecraft programmiert dürfte glaube ich klar sein. Lass uns aber mal anschauen was für Spiele mit Pico8 gemacht werden können.
+Dass man mit einem 30 Jahren alten Computer kein Fortnite oder minecraft programmiert dürfte glaube ich klar sein. Lass uns aber mal anschauen was für Spiele mit Pico-8 gemacht werden können.
 
 | Screenshot | Beschreibung |
 |:---:|:---:|
 | ![Image1](https://www.lexaloffle.com/bbs/cposts/sa/satelite_catcher-6.p8.png) | Das Spiel was wir heute grösstenteils heute programmieren werden. Hier sehen wir das finale Produkt, dass ich an einem Wochenende erdacht und entwickelt habe. [Satelite Catcher](https://www.lexaloffle.com/bbs/?pid=94300#p) |
-| ![Image2](https://www.lexaloffle.com/bbs/cposts/po/porklike-2.p8.png) | Ein 2D dungeon crawler. Zu diesem Spiel gibt es ein online tutorial dass einen Schritt für Schritt durch den Entwicklungsprozess führt. [porklike - spiel](https://www.lexaloffle.com/bbs/?pid=73825#p) / [pico8 roguelike -tutorial](https://www.youtube.com/watch?v=HnY7Inp74dw&list=PLea8cjCua_P3LL7J1Q9b6PJua0A-96uUS)|
-| ![Image2](https://www.lexaloffle.com/bbs/cposts/ca/cab_ride-7.p8.png) | Ein pseudo 3D Ubahn simulator, der Entwickler dieses Spiel kennt Pico8 seit Jahren und ist ein profesioneller Entwickler, solche Projekte brauchen sehr viel Zeit! [cab-ride](https://www.lexaloffle.com/bbs/?pid=86966#p) |
+| ![Image2](https://www.lexaloffle.com/bbs/cposts/po/porklike-2.p8.png) | Ein 2D dungeon crawler. Zu diesem Spiel gibt es ein online tutorial dass einen Schritt für Schritt durch den Entwicklungsprozess führt. [porklike - spiel](https://www.lexaloffle.com/bbs/?pid=73825#p) / [Pico-8 roguelike -tutorial](https://www.youtube.com/watch?v=HnY7Inp74dw&list=PLea8cjCua_P3LL7J1Q9b6PJua0A-96uUS)|
+| ![Image2](https://www.lexaloffle.com/bbs/cposts/ca/cab_ride-7.p8.png) | Ein pseudo 3D Ubahn simulator, der Entwickler dieses Spiel kennt Pico-8 seit Jahren und ist ein profesioneller Entwickler, solche Projekte brauchen sehr viel Zeit! [cab-ride](https://www.lexaloffle.com/bbs/?pid=86966#p) |
 
 Was haben diese Spiele gemeinsam?
 
-## Pico8 Spezifikationen
+## Pico-8 Spezifikationen
 1. Bidlschirmgrösse: 128x128
 2. Grafiken: pixelart
 3. Sound Effekte: einfache 8bit
@@ -121,28 +121,28 @@ Dann lass uns starten :D
 Nun starten wir mit dem Programmieren des Spiels.
 
 ## Vorwort
-Beim Programmieren ist es wichtig, dass wir beinahe jeden Buchstaben und insbesondere Sonderzeichen exakt so kopieren wie es in diesem Tutorial vogegeben wird. Ich empfehle daher die Codebeispiele die in diesem Skript abgedruckt sind 1:1 zu kopieren (CTRL+C) und dann in Pico8 einzusetzen (CTRL+V). 
+Beim Programmieren ist es wichtig, dass wir beinahe jeden Buchstaben und insbesondere Sonderzeichen exakt so kopieren wie es in diesem Tutorial vogegeben wird. Ich empfehle daher die Codebeispiele die in diesem Skript abgedruckt sind 1:1 zu kopieren (CTRL+C) und dann in Pico-8 einzusetzen (CTRL+V). 
 
 Sollte etwas nicht funktionieren wie im Script beschrieben, gerne entweder das Kapitel "Debugging / Fehlersuch" durchlesen, und oder mich um Hilfe fragen.
 
 ## print("hallo")
-Als erstes schauen wir an wie wir in Pico8 programmieren. Dazu starten wir die Pico8-edu, oder wer hat die Vollversion.
+Als erstes schauen wir an wie wir in Pico-8 programmieren. Dazu starten wir die Pico-8-edu, oder wer hat die Vollversion.
 
-<h4 align="center"> click me --> <a href="https://www.pico-8-edu.com/">Pico8-edu link</a> <-- click me</h4>
+<h4 align="center"> click me --> <a href="https://www.pico-8-edu.com/">Pico-8-edu link</a> <-- click me</h4>
 <br>
 <br>
 <div align="center">
 </div>
 
-1. Pico8 starten
-2. (nur für pico8 edu) Play button drücken
+1. Pico-8 starten
+2. (nur für Pico-8 edu) Play button drücken
 3. Nachdem diie kurze Intro Animation abgespielt wurde sollte es wie auf dem bild unten ausehen. Evtl. seht ihr jedoch eine andere version (unten: ) die versions Unterschiede könnt ihr ignorieren. Auf der Edu version im Browser werdet ihr ausserdem zusätzlich einen pinken Teext "USING TEMPORARY DISK" sehen.
 
 <div align="center">
 <img  src="images/step-by-step/01_pico8_start.png" style="max-width: 300px;">
 </div>
 
-4. fange einmal an zu tippen und gib `print("hello world")` ein (beachte dass automatisch Grossbuchstaben verwendet werden... dies ist so bei Pico8, Grossbuchstaben (shift) werden in Pico8 zu "komischen" Zeichen) dann mit "Enter" bestätigen. Danach erscheint unten eine neue Zeile:
+4. fange einmal an zu tippen und gib `print("hello world")` ein (beachte dass automatisch Grossbuchstaben verwendet werden... dies ist so bei Pico-8, Grossbuchstaben (shift) werden in Pico-8 zu "komischen" Zeichen) dann mit "Enter" bestätigen. Danach erscheint unten eine neue Zeile:
 
 <div align="center">
 <img  src="images/step-by-step/02_hallo.png" style="max-width: 300px;">
@@ -154,14 +154,14 @@ Als erstes schauen wir an wie wir in Pico8 programmieren. Dazu starten wir die P
 <img  src="images/step-by-step/03_syntax_error.png" style="max-width: 300px;">
 </div>
 
-6. Glückwunsch das war bereits die erste Zeile code die ihr in Pico8 habt laufen lassen.
+6. Glückwunsch das war bereits die erste Zeile code die ihr in Pico-8 habt laufen lassen.
 
 ### Aufgabe
 1. was musst du tun um `hallo name` zu printen?
 2. versuch mal absichtlich einen Fehler zu machen und überlege dir ob du die Fehlermeldung verstehst.
 
 ## a + b
-Pico8 kann auch als Taschenrechner verwendet werden. Lass es uns versuchen.
+Pico-8 kann auch als Taschenrechner verwendet werden. Lass es uns versuchen.
 1. tippe `a=1` + enter
 2. tippe `b=2` + enter
 3. tippe `c=a+b` + enter
@@ -206,7 +206,7 @@ cls(1)
 circfill(30,30,40,2)
 circfill(60,50,40,13)
 rectfill(38,78,86,86,0)
-print("let's pico8",40,80,11)
+print("let's Pico8",40,80,11)
 ```
 
 Dass sieht dann im Editoren so aus:
@@ -235,7 +235,7 @@ Das Resultat sollte so ausehen.
 Gut, aber mit Micrsoft Powerpoint krieg ich dass auch hin... ist dass nicht ein wenig kompliziert? Ja, da hasst du recht. Aber lass uns ersteinmal die Zeilen auseinander nehmen bevor wir was interessanteres schreiben.
 
 ## Klassenaufgabe
-1. in Pico8 den Code anschauen und mit den "Kommandos" von weiter oben vergleichen. Warum ist was wo?
+1. in Pico-8 den Code anschauen und mit den "Kommandos" von weiter oben vergleichen. Warum ist was wo?
 2. Habt ihr eine Idee warum die Schrift über den Kreisen gezeichnet wird?
 
 ## Fazit
@@ -284,17 +284,17 @@ Bei mir sieht dass dann so aus
 
 > Laden funktioniert ähnlich. Um eine vorher heruntergeladene Version zu laden, gib einfach "load meinspiel.p8" ein und dein Spiel wird wieder geladen.
 
-> Speicherort: Dateien können nur vom download ordner geladen werden und werden auch immer dort gespeichert. Andere Dateien findet Pico8 nicht.
+> Speicherort: Dateien können nur vom download ordner geladen werden und werden auch immer dort gespeichert. Andere Dateien findet Pico-8 nicht.
 
 <br>
 <br>
 
-## Sprites zeichnen mit Pico8
+## Sprites zeichnen mit Pico-8
 Nun wollen wir zumindest einmal das Spielsrpite zeichnen. 
 
 1. geht wieder in die Konsole (oder Terminal) und gebt ein "spr(1,20,10)"
 2. der Spieler wird oben links gezeichnet.
-3. Welche werte musst du wohl ändern um den Spieler in der Mitte des Bildschirms zu zeichnen (Tipp, der Bildschirm von pico8 ist 128x128 gross, sprites sind 8x8 gross)
+3. Welche werte musst du wohl ändern um den Spieler in der Mitte des Bildschirms zu zeichnen (Tipp, der Bildschirm von Pico-8 ist 128x128 gross, sprites sind 8x8 gross)
 
 Das Endresultat sollte so ausehen
 
@@ -429,7 +429,7 @@ end
 6. Was erwartet ihr passiert nun wenn ihr das Spiel laufen lasst?
 7. finden wir es mit `CTRL + S` und `CTRL + R` heraus.
 
->Falls ihr einen Fehler bekommt oder sich der Spieler nicht bewegt, vergleicht einmal den Code unten mit eurem. Zum besseren Verständniss habe ich mit `--` kommentare hinzugefügt. Dass sind Texte die Pico8 ignoriert und die irh verwenden könnt um Notizen in eurem Code zu haben und Dinge (für später?) zu dokumentieren.
+>Falls ihr einen Fehler bekommt oder sich der Spieler nicht bewegt, vergleicht einmal den Code unten mit eurem. Zum besseren Verständniss habe ich mit `--` kommentare hinzugefügt. Dass sind Texte die Pico-8 ignoriert und die irh verwenden könnt um Notizen in eurem Code zu haben und Dinge (für später?) zu dokumentieren.
 
 >Tipp in meinem aktuellen Steam Spiel befinden sich ganz viele Kommentare die mir schon oft das Leben gerettet haben ;-)
 
@@ -456,9 +456,9 @@ end
 ```
 
 # Tastatur input
-Wir wissen nun wie wir unseren Spieler bewegen können. Die Bewegung ist zugegebenermassen ein wenig langweillig. Was fehlt ist dass wir den Spieler kontrollieren können. Wir brauchen Informationen welche Tasten unser (menschlicher) Spieler betätigt. Lass uns doch kurz anschauen welche Taste wir bei Pico8 zur verfügung haben.
+Wir wissen nun wie wir unseren Spieler bewegen können. Die Bewegung ist zugegebenermassen ein wenig langweillig. Was fehlt ist dass wir den Spieler kontrollieren können. Wir brauchen Informationen welche Tasten unser (menschlicher) Spieler betätigt. Lass uns doch kurz anschauen welche Taste wir bei Pico-8 zur verfügung haben.
 
-Hier möchte nun zum ersten mal auf das Pico8 Cheatsheet (zu deutsch Spickzettel) hinweisen in dem die wichtigsten Befehle und Funktionen der Engine aufgelistet sind. 
+Hier möchte nun zum ersten mal auf das Pico-8 Cheatsheet (zu deutsch Spickzettel) hinweisen in dem die wichtigsten Befehle und Funktionen der Engine aufgelistet sind. 
 
 Online findet ihr diesen Spickzettel hier <h4 align="center"> click me --> <a href="https://www.lexaloffle.com/bbs/?tid=28207">Cheat sheet</a> <-- click me</h4>. Ich habe jedoch auch eine Kopie auf der online version dieses Scripts hinzugefügt. Im folgenden werde ich jeweils jene Auschnitte abbilden die wir gerade benötigen.
 
@@ -537,12 +537,12 @@ function _update()
 end
 ```
 
-Wenn wir dieses laufen lassen wird pico8 immer false anzeigen, ausser wenn wir die X Taste gedrückt haben. Dann wird true angezeigt.
+Wenn wir dieses laufen lassen wird Pico-8 immer false anzeigen, ausser wenn wir die X Taste gedrückt haben. Dann wird true angezeigt.
 
 >Fazit: die Funtion btn(5) fragt "den Computer" ob die Taste X gedrückt worden ist
 
 ## Den Spieler mit den Pfeiltasten bewegen
-Wie im vorherigen Kapitel gelernt, können wir mit btn abfragen ob Tasten gedrückt sind. Um die Pfeiltasten abzufragen können wir laut Pico8 Cheat sheet die Adressen 0-3 abfragen.
+Wie im vorherigen Kapitel gelernt, können wir mit btn abfragen ob Tasten gedrückt sind. Um die Pfeiltasten abzufragen können wir laut Pico-8 Cheat sheet die Adressen 0-3 abfragen.
 
 Wir wissen nun wie wir diese Information erlangen können. Was noch fehlt ist wie wir dem Computer sagen sollen was er mit dieser Funktion anfangen soll. 
 
@@ -772,7 +772,7 @@ function _draw()
 end
 ```
 
->beachtet dass auch die hier bekannten 3 Funktionen eben Funktionen sind! Sie müssen aber nicht von uns aufgerufen werden, sondern pico8 macht das für uns. `_init` einmal am Anfang und dann abwechselnd `_update` und `_draw`
+>beachtet dass auch die hier bekannten 3 Funktionen eben Funktionen sind! Sie müssen aber nicht von uns aufgerufen werden, sondern Pico-8 macht das für uns. `_init` einmal am Anfang und dann abwechselnd `_update` und `_draw`
 
 >beachtet auch den Kommentar `--main` dieser muss ganz oben stehen, er definiert den "Namen" unserer momentanen Datei. Dies wird euch später helfen zu identifizieren welcher Code wohin kommt.
 
@@ -937,11 +937,11 @@ Stichworte:
 
 Machmal hilft es den Namen von bekannten Game engines mit der Frage zu verbinden.
 
-Etwa: wie generiert man etwas zuälliges in Pico8. (wahlweise auch Unity / Unreal als Engine einsetzen)
+Etwa: wie generiert man etwas zuälliges in Pico-8. (wahlweise auch Unity / Unreal als Engine einsetzen)
 
 > im Programmieren hilft es oft auf englisch zu suchen wenn man auf Deutsch nichts findet
 
-> nichts gefunden? Überlege dir einmal wie du für die Aufgabenstellung "zufällige Position in Pico8" Chat gpt fragen würdest
+> nichts gefunden? Überlege dir einmal wie du für die Aufgabenstellung "zufällige Position in Pico-8" Chat gpt fragen würdest
 
  <h4 align="center"> click me --> <a href="https://www.lexaloffle.com/bbs/?tid=140996">Handy 10min timer :D</a> <-- click me</h4>
 
@@ -955,9 +955,9 @@ Etwa: wie generiert man etwas zuälliges in Pico8. (wahlweise auch Unity / Unrea
 
 1. es gibt zufallszahlen in der Programmierung. egal in welcher Sprache es wird immer eine funktion geben welche eine zufällige Zahl zwischen 0 und 1 ausgibt (z.B. 0.765443)
 2. Diese Funktionen heissen in der Regel z.B. math.random(), random() Random.new() oder ähnlichhes.
-3. In Pico8 heisst die Funktion rnd().
+3. In Pico-8 heisst die Funktion rnd().
 
-> lass uns einmal eine Random funktion ausprobieren. Dazu könnt ihr mit "ESC" einfach einmal ins temrinal von pico8 gehen.
+> lass uns einmal eine Random funktion ausprobieren. Dazu könnt ihr mit "ESC" einfach einmal ins temrinal von Pico-8 gehen.
 
 Im Terminal tippt ihr einmal folgenden Code ein:
 
@@ -1019,7 +1019,7 @@ end
 ```
 
 ### Zufällige Bildschirm Position verstehen
-Ok wie definiert sich ein Position auf dem Bildschirm in pico8? Auch dazu haben wir einen Hinweis auf dem Cheatsheet.
+Ok wie definiert sich ein Position auf dem Bildschirm in Pico-8? Auch dazu haben wir einen Hinweis auf dem Cheatsheet.
 
 <div align="center">
 <img  src="images/step-by-step/22_screen_size.png" style="max-width: 300px;">
@@ -1033,13 +1033,13 @@ Im Bild oben findet ihr ein grünes und ein gelbes Pixel. eines Oben links (0,0)
 
 Basierend auf den oben genannten Tatsachen können wir folgendes Zusammenfassen:
 
-1. wir wollen zufällige Positionen zwischen 0,0 und 127,127 generieren um unsere Sterne zufällig auf dem Bildschirm zu verteilen.
+1. wir wollen zufällige Positionen zwischen 0,0 und 127,127 generieren um eine zufällige Bildschirm Position zu erhalten.
 2. X geht von links nach rechts
 3. Y geht von Oben nach unten
 
 
 ### Zahl zwischen 0 und 128 generieren
-Ok wie wissen jetzt was wir brauchen. Jeweis eine zufällige Zahl zwischen 0 und 127 für beide Achsen X/Y.
+Ok wir wissen jetzt was wir brauchen. Jeweis eine zufällige Zahl zwischen 0 und 127 für beide Achsen X/Y.
 
 Wir wissen auch schon dass wir mit `rnd` Zahlen von 0-1 generieren können... Wie kriegen wir aus 0-1 eine Zahl 0-127? 
 
@@ -1049,7 +1049,7 @@ Wir wissen auch schon dass wir mit `rnd` Zahlen von 0-1 generieren können... Wi
 
 Im Code sieht dass dann so aus `*` ist gleich bedeutend mit einer Multiplikation `2x3=6` lässt sich mit Lua schreiben als `local a = 2*3` wobei a dann den Wert 6 hat.
 
-> Diese Funktion platzieren wir in einem neuen Tab "--util" was auf english soviel heisst wir Werkzeuge. Hier platzieren wir Funktionen die wir überall im code benutzen wollen. 
+> Diese Funktion platzieren wir in einem neuen Tab "--util" was auf english soviel heisst wie Werkzeuge. Hier platzieren wir Funktionen die wir überall im code benutzen wollen. 
 
 ```lua
 --util
@@ -1069,6 +1069,142 @@ end
 > Ausserdem verwenden wir das erste mal `return` dies wird verwendet, damnit die Funktion `get_rnd_screen_pos()` verwendet werden kann um eine neue Position zu generieren. Dass sieht dann so aus: `newPos = get_rnd_screen_pos()` nun sind in newPos.x und newPos.y jeweils ein Wert zwischen 0-127 gespeichert
 
 Dass war jetzt zugegebenermassen ein wenig viel auf einmal. Aber lass uns dass noch einmal langsam zusammen fassen.
+
+## Satelit platzieren
+Nun schreiben wir unser Sateliten Code. 
+
+1. Satelit auf zufälliger Bildschirm position platzieren - beim Start des Spiels
+
+Lass uns ersteinmal ein neues Tab "Satelite" erstellen. (Dazu wieder oben neben den Zahlen das kleine Plus drücken)
+
+### Sateliten Tab
+Vorher sicherstellen dass euer Satelit die richtige Sprite id hat
+
+
+<div align="center">
+<img  src="images/step-by-step/27_sateliteID.png" style="max-width: 300px;">
+</div>
+
+```lua
+--satelite
+local satelite = {
+	pos={
+		x = 0,
+		y = 0
+	},
+	sprite = 2 --sprite id des Sateliten!
+}
+
+function spawn_satelite()
+	satelite.pos = get_rnd_screen_pos()
+end
+
+function draw_satelite()
+	spr(satelite.sprite,satelite.pos.x,satelite.pos.y)
+end
+```
+
+</br>
+</br>
+
+> So lass uns mal anschauen was dieser Code macht. Wer möchte einmal erklären was er sieht?
+
+</br>
+</br>
+
+> Wo müssen wir jetzt welche Funktion aufrufen damit wir am Anfang einen Sateliten auf den Bildschirm zeichnen?
+
+<div style="page-break-after: always;"></div>
+
+### Lösung, functionen in main verwenden
+Wir müssen die Funtionen wie folgt unten einbinden.
+
+1. Da wir nur am Anfang EINEN Sateliten Spawnen wollen, müssen wir die spawn Funktion in `_init()` einfügen, so dass sie dann wenn sie den Player platziert auch den Sateliten platziert.
+2. da ws sich bei der Funktion "draw_satelite()" um eine draw function handelt, kommt diese in die `_draw()` die in jedem Frame aufgerufen wird (30/s).
+3. Beachte dass wir den Player am Ende zeichnen, wenn er zuletzt gezeichnet wird, dann wird er immer VOR dem Sateliten gezeichnet und wird nie durch ihn verdeckt. Das ist Wichtig da wir ihn immer sehen wollen!
+
+```lua
+--main
+
+function _init()
+ init_player()
+ spawn_satelite()
+end
+
+function _update()
+ update_player()
+end
+
+function _draw()
+ cls()
+ draw_satelite()
+ draw_player()
+end
+```
+
+# Sateliten fangen
+Mein ursprüngliches Spiel heisst ja "Satelite Catcher" also Sateliten fänger. Wir können bis jetzt einen Sateliten spawnen, aber noch nicht fangen. Als nächstes werden wir uns darum kümmern.
+
+Dazu müssen wir uns kurz mit Kollisionen auseinander setzen. Ich habe dazu ein kleines Test Programm geschrieben.
+
+Dieses findet ihr hier:
+
+ <h4 align="center"> click me --> <a href="https://www.lexaloffle.com/bbs/?pid=145104#p">Saturn91's collision example</a> <-- click me</h4>
+
+ Und jetzt zeig ich euch eine der coolsten Features von Pico-8. 
+
+ >Pico-8 lässt euch jede "Cart" die ihr auf [lexaloffle](https://www.lexaloffle.com/bbs/?cat=7&carts_tab=1#mode=carts&sub=2) findet downloaden. Und danach könnt ihr euch den code anschauen. Lass uns im nächsten Kapitel einmal das Collision example herunterladen und die benötigte Funktion extrahieren.
+
+ ## Pico-8 Programm code von anderen Spielen anschauen
+Wir könnten dieses Kapitel auch "Arbeiten wie ein Programmierer" oder "Verantwortungsvolles ~~stehlen~~ wieder verwenden von Code". 
+
+### Rechtliches
+Ich habe das im letzten Satz absichtlich sehr negativ formuliert. Natürlich ist Stehlen von etwas was jemand anderer Gemacht hat nie etwas Gutes... Nur müssen wir in diesem Kontext "Stehlen" ein wenig genauer definieren.
+
+In der Softwarebranche ist es Gang und Gäbe dass man sich anschaut wie ein/e anderer Ingenieur/in etwas gelöst hat. Und es ist auch legitim Teile von Code unverändert in seinem eigenen Projekt zu verwenden. WENN die sogenannten Lizenzen unter denen das Projekt veröffentlicht wurde dies erlauben ODER wenn ihr die kopierten Zeilen nur verwendet um zu lernen.
+
+> Ich versichere euch, dass alle Spiele auf Lexaloffle zumindest zum Erlernen von Programmieren heruntergeladen und angeschaut werden dürfen. Ich wäre jedoch vorsichtig grosse Teile eines Spiels zu kopieren, es leicht umzubauen und danach als Teil meines Spiels wieder zu veröffentlichen. Grundsätzlich gilt, wenn Code kopiert wird mindestens den originalen Entwickler in einem Kommentar und oder im release Text des Spiels zu erwähnen.
+
+> Solange ihr nur Projekte macht die ihr nie veröffentlicht, könnt ihr im Prinzip kopieren soviel ihr wollt ;-)
+
+> noch ein Tipp wenn ihr ein Spiel veröffentlicht sind allgemeine Codes wie jetzt eben diese Kollision Funktion, oder ein Partikelsystem (also Grund mechaniken die in tausenden von Spielen vorkommen) eher unkritisch zu kopieren. Schwieriger wird wenn eine Funktion ein einzigartiges Spiel ausmacht.
+
+> beim kopieren von Kunst und Music ist sehr viel mehr Vorsicht geboten! Als Beispiel, jedes Spiel mit Mario, Luigi o.ä. wird sobald es ein wenig bekannter ist von Nintendo start abgemahnt und kann viel Geld kosten...
+
+### Ok genug rechtliches Geschwaffel, lass uns kopieren!!
+
+Um den sogenannten Quellcode einer "Cartridge" oder "Cart" von der Lexaloffle Seite genauer zu untersuchen müssen wir nur Zugriff auf die Bilddatei `p8.png` erhalten. 
+
+1. Wir gehen als erstes auf die Lexaloffle seite auf der das Spiel gepostet wurde. [(link)](https://www.lexaloffle.com/bbs/?pid=145104#p)
+2. Unter der Cartridge seht ihr ein kleines Bild neben dem `cart` steht, dort drauf clicken um das Bild zu sehen.
+
+<div align="center">
+<img  src="images/step-by-step/28_get_p8_png_file.png" style="max-width: 300px;">
+</div>
+
+3. Nun sehen wir eine Seite auf der nur das Bild zu sehen ist. Dieses können wir jetzt mit einem rechtsclick und Bild herunterladen auf unseren Rechner holen. Stellt sicher dass es sich danach im Download Ordner befindet.
+
+4. Nun folgt ein sehr wichtiger Schritt !!Speichern eueres Projektes!! Dazu mal wieder mit `ESC` ins Terminal wechseln und `save EIN_GUTER_NAME.p8` eingeben und JA ihr sollt einen eigenen Namen verwenden :D in meinem Fall `save mein_spiel_rnd_pos.p8`.
+
+<div align="center">
+<img  src="images/step-by-step/29_save_game.png" style="max-width: 300px;">
+</div>
+ 
+5. stellt sicher das da `saved NAME.p8` steht und keine Fehlermeldung ;-)
+6. Nun könnt ihr einfach die gedownloadete Datei `circle_collision_example-0.p8.png` auf Pico-8 ziehen.
+7. Alternativ könnt ihr auch `load` + ENTER eintippen, danach die richtige Datei im Verzeichnis suchen und verwenden
+8. Das Endresultat sollte auf jeden fall so aussehen:
+<div align="center">
+<img  src="images/step-by-step/30_load_cart.png" style="max-width: 300px;">
+</div>
+
+9. Nun können wir mit CTRL + R die Cartridge laufen lassen. Danach schauen wir uns den Code einmal an.
+10. nun kopieren wir die ganze `circ_col(c1, c2)` Funktion und kopieren sie in unser Projekt. 
+11. Nun werden wir die Funktion in unserem Projekt verwenden.
+
+### Player Kollider implementieren
+
+
 
 ## Sterne platzieren
 Nun können wir mit der Funktion Sterne im Hintergrund platzieren. Jetzt wäre noch ein guter Zeitpunkt um noch ein paar Sterne im Graphics Menu zu zeichen wenn ihr dass noch nicht gemacht habt. Bei mir sieht dass am Ende so aus:
@@ -1197,7 +1333,7 @@ Dass machen wir jetzt mit unseren Sternen. In `init_bg` werden wir die Tabelle f
 
 # Hintergrund (Bonus Kapitel 2)
 
-## Pico8 Cheatsheet (Spickzettel)
+## Pico-8 Cheatsheet (Spickzettel)
 
 ## Wie Weiter?
 
