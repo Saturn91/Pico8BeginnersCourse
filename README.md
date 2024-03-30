@@ -1379,7 +1379,96 @@ end
 ```
 
 # UI Punkte anzeigen
-Bis jetzt haben wir nur die Spiel mechanik umgesetzt, in unserem Fall den Spieler zu bewegen und die Sateliten einzufangen. Nun wenden wir uns den Dingen zu die zwar nicht direkt zum Kern des Spiel gehören, jedoch das Spiel vervollständigen.
+Bis jetzt haben wir nur die absolute Kern Spielmechanik umgesetzt, in unserem Fall den Spieler zu bewegen und die Sateliten einzufangen. Nun wenden wir uns den Dingen zu die zwar nicht direkt zum Kern des Spiel gehören, jedoch das Spiel vervollständigen.
+
+Wir fangen mit dem Punktesystem an. Jedes Mal wenn ein Satelit gefangen wird, sollen die Punkte um +1 nach oben. Dass zeigen wir dann oben im Spielfeld an.
+
+Dass Endziel wird so aussehen:
+
+<div align="center">
+<img  src="images\step-by-step\35_score.png" style="max-width: 300px;">
+</div>
+
+Folgende Zwischenziele gilt es zu erreichen.
+1. Eine Variable für Punkte einführen
+2. Punkte/Variabel bei Spielstart auf 0 setzen
+3. Jedes Mal wenn der Spieler einen Sateliten fängt die Punkte um eins nach oben zählen
+3. Punkte in der UI anzeigen
+4. Sound effekt abspielen wenn ein Satelit gefangen wird
+
+> lass uns vorab für jedes Zwischenziel einmal überlegen wie wir vorgehen könnten
+
+## Neues Tab UI
+Wir fügen ein neues Tab `UI` hinzu welches allen Code enthalten soll.
+
+### Neue Variable hinzufügen
+Im neuen UI Tab fügen wir nun unsere `score` variable hinzu
+
+### Variable beim Start auf 0 setzen
+Im neuen UI Tab eine funktion `init_ui` hinzufügen, in dieser setzen wir `score = 0`.
+
+### Sateliten fangen erhöht Punkt
+Im Code identifizieren wann wir einen Sateliten fangen. Tipp, momentan spawnen wir zu dem Zeitpunkt einen neuen Sateliten. Der code dazu wäre dann `score += 1`
+
+### Punkte in der UI anzeigen
+Wir können im UI tab eine neue Funktion `draw_ui` hinzufügen. In dieser kommt nun der Code um die Punkte anzuzeigen.
+Dass machen wir mit der bereits bekannten Funktion `print(text,xPos,yPos,Farbe)`. Diese soll nun einfach die Punkt oben links anzeigen.
+
+Um die Sichtbarkeit zu erhöhen können wir auch hinter dem Text noch ein Rechteck in der Farbe 1 (blau) zeichnen. Dazu können wir die altbekannte Funktion `rectfill` verwenden. ich habe euch die Positionen direkt ausgerechnet.
+
+```lua
+ rectfill(0,0,128,8,1)
+ --TODO print function
+```
+
+### UI Tab Programm
+```lua
+--ui
+score = 0
+
+function init_ui()
+	score = 0
+end
+
+function draw_ui()
+ rectfill(0,0,128,8,1)
+ print("score:"..score,2,2,9)
+end
+```
+
+### Punkte erhöhen Programm code
+Um die Punkte zu erhöhen wenn ein Satelite gefangen wird müssen wir im player_update eine Zeile einfügen. Und zwar machen wir das im gleichen IF in dem wir auch den Sateliten an eine neue Position bewegen.
+```lua
+function update_player()
+ 
+ [...]
+
+ if satelite_catched then
+  spawn_satelite() --sateliten neu platzieren
+  score += 1 --punkte zaehlen
+ end
+end
+```
+
+Nun sollten die Punkte bei euch hochgezält und angezeigt werden.
+
+### Kleiner Bug-fix
+> hat jemand eine Idee was für ein Problem wir jetzt mit den Sateliten haben, nachdem wir oben einen 8px hohes Rechteck eingefügt haben?
+
+Da wir nun die oberen 8pixel unsers Spielfelds durch UI verdecken kann es vorkommen, dass unser Satelite genau unter dem Balken gezeichnet wird. Um das zu behben müssen wir die Funktion `get_rnd_screen_pos` ein wenig beheben.
+
+```lua
+--util
+function get_rnd_screen_pos()
+	return  {
+		x = rnd() * 120,
+		y = rnd() * 112 + 8 + 1 --screenpos without UI
+	}
+end
+```
+
+# Esplosionen
+So nun nachdem wir etwas zum gewinnen im Spiel eingebaut haben, brauchen wir noch etwas zum verlieren. Wir implementieren Explosionen. Dieser werden wir durch farbige wachsende Kreise implementieren. Wenn der Spieler sich in einer Explosion drin befindet, dann zeigen wir den momentanen Punkte stand an und zeigen einen Game Over Bildschirm.
 
 
 
