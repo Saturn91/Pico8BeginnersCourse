@@ -1087,7 +1087,7 @@ Vorher sicherstellen dass euer Satelit die richtige Sprite id hat
 
 ```lua
 --satelite
-local satelite = {
+satelite = {
 	pos={
 		x = 0,
 		y = 0
@@ -1222,13 +1222,164 @@ So nun gilt es nur noch das gelernte zu kombinieren dazu wollen wir folgende Zwi
 
 2. Die beiden Kreise auf kollision überprüfen mit der gerade importierten Funktion `circ_col`
 3. Die Kreise zwar nicht mehr zeichnen, aber weiterhin auf Kollision überprüfen.
-4. Wenn der Spieler mit dem Sateliten kollidert eine Funktion ausführen welche den Text `Satelite gefangen!` auf dem Bildschirm anzeigt
-5. Den Sateliten an einem anderen Ort auf dem Bildschirm platzieren.
+4. Den Sateliten an einem anderen Ort auf dem Bildschirm platzieren.
 
 #### Implementation
 Schritt 1 Zwei Kreise zeichnen (Zur Erinnerung: `circ(xPos,yPos,radius)`) an der Position des Spielers und des Sateliten. Wie machen wir dass?
 
-> In der Klasse besprechen und oder selbst versuchen, danach weiter im Text ;-)
+> Aufgabe: Im Plenum besprechen und oder selbst versuchen, danach weiter im Text ;-)
+1. Im `player` Tab fügen wir einen Kreis hinzu.
+
+```lua
+--player
+player = {
+    pos={x=0,y=0},
+    r = 4, --needed for collision
+}
+
+function init_player()
+ player.pos.x = 64
+ player.pos.y = 64
+end
+
+function update_player()
+ local up = btn(2)
+ local left = btn(0)
+ local down = btn(3)
+ local right = btn(1)
+
+ if up then
+  player.pos.y -= 1
+ end
+
+ if left then
+  player.pos.x -= 1
+ end
+
+ if down then
+  player.pos.y += 1
+ end
+
+ if right then
+  player.pos.x += 1
+ end
+end
+
+function draw_player()
+--spieler sprite
+ spr(1,player.pos.x,player.pos.y)
+ --kollisionskreis
+ circ(player.pos.x,player.pos.y,player.r,8)
+end
+```
+
+Das Endresultat sieht nun so aus - nicht ganz so wie erwartet oder?
+
+<div align="center">
+<img  src="images/step-by-step/32_collider_without_offset.png" style="max-width: 300px;">
+</div>
+
+Da Sprites nicht mittig sondern mit dem links oberen Pixel positioniert werden und Kreise mit dem Mittelpunkt müssen wir eine kleine Korrektur vornehmen. Da wir für unsere importierte Funktion circ_col die "pos" verwenden müssen, müssen wir das Sprite ein wenig nach links oben verschieben. Dies machen wir mit einer Offset variabel.
+```lua
+player = {
+    pos={x=0,y=0},
+    r = 4, --needed for collision
+    spr_offset = {x=-4,y=-4} --offset so sprite gets drawn in correct position
+}
+
+[...]
+
+function draw_player()
+--spieler sprite
+ spr(1,player.pos.x+player.spr_offset.x,player.pos.y+player.spr_offset.y) --use offset here!
+
+ --kollisionskreis
+ circ(player.pos.x,player.pos.y,player.r,8)
+end
+```
+
+Ok so wird ein Schuh draus!
+
+<div align="center">
+<img  src="images/step-by-step/31_circle_collision.png" style="max-width: 300px;">
+</div>
+
+Nun machen wir das selbe für den Sateliten:
+
+```lua
+--satelite
+satelite = {
+	pos={
+		x = 0,
+		y = 0
+	},
+	r = 4, --needed for collision
+	spr_offset = {
+		x = -4,
+		y = -4
+	},
+	sprite = 2 --sprite id des sateliten!
+}
+
+function spawn_satelite()
+	satelite.pos = get_rnd_screen_pos()
+end
+
+function draw_satelite()
+	spr(satelite.sprite,satelite.pos.x+satelite.spr_offset.x,satelite.pos.y+satelite.spr_offset.y)
+    circ(satelite.pos.x,satelite.pos.y,satelite.r)
+end
+```
+
+Dass müsste dann so ausehen:
+
+<div align="center">
+<img  src="images\step-by-step\33_satelite_collider.png" style="max-width: 300px;">
+</div>
+
+Nun fehlt noch der eigentliche Kollisionscheck. Dazu müssen wir jetzt die beiden Objecte (Kreise) Player und Satelite noch mit der Funktion `circ_col` überprüfen.
+
+Dazu die Funktion `update_player` im Playertab wie folgt ergänzen.
+
+```lua
+function update_player()
+ 
+ [...] 
+ 
+ --pruefen ob spieler ueber satelite
+ satelite_catched = circ_col(player,satelite)
+
+ if satelite_catched then
+    spawn_satelite() --sateliten neu platzieren
+ end
+end
+```
+
+Dies sollte nun den Sateliten auf einer neuen Position auf dem Bidlschirm positionieren wenn wir mit ihm kollidieren. Lasst uns dies nun testen.
+
+> hat alles funktioniert?
+
+#### Aufräumen
+Die beiden Kreise über dem Sateliten und dem Player haben wir nur gezeichnet um zu wissen dass sich diese am richtigen Ort befinden, wir können sie nun also wieder rauslöschen. Dazu in den beiden draw functions (draw_satelite und draw_player) die Linie mit dem `circ` herauslöschen (oder in einen Kommentar verwandeln)
+
+Danach solltet ihr zwar die Kreise nicht mehr sehen, aber der Satelit müsse bei Überlappung mit dem Player immer noch neu positioniert werden.
+
+```lua
+function draw_player()
+--spieler sprite
+ spr(1,player.pos.x+player.spr_offset.x,player.pos.y+player.spr_offset.y)
+ --kollisionskreis
+ --circ(player.pos.x,player.pos.y,player.r,8) auskommentieren oder löschen
+end
+
+function draw_satelite()
+ spr(satelite.sprite,satelite.pos.x+satelite.spr_offset.x,satelite.pos.y+satelite.spr_offset.y)
+ --circ(satelite.pos.x,satelite.pos.y,satelite.r)
+end
+```
+
+# UI Punkte anzeigen
+Bis jetzt haben wir nur die Spiel mechanik umgesetzt, in unserem Fall den Spieler zu bewegen und die Sateliten einzufangen. Nun wenden wir uns den Dingen zu die zwar nicht direkt zum Kern des Spiel gehören, jedoch das Spiel vervollständigen.
 
 
 
