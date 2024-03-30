@@ -993,12 +993,6 @@ Um unsere "get random position funktion" zu programmieren brauchen wir aber eine
 ## Zufalls Positionen
 In diesem Abschnitt schreiben wir endlich die Funktion die es uns erlaubt Dinge zufällig auf dem Bildschirm zu platzieren. Das ist im Grunde ganz einfach wenn wir die `rnd` Funktion verwenden.
 
-Das Endresultat wird so aussehen:
-
-<div align="center">
-<img  src="images/step-by-step/21_rnd_stars.png" style="max-width: 300px;">
-</div>
-
 Zwischenziele:
 1. verstehen was eine Zufällige Position genau ist
 2. Zahl zwischen 0 und 128
@@ -1467,12 +1461,59 @@ function get_rnd_screen_pos()
 end
 ```
 
+### Bonus Soundeffekte
+Nun kann wer mag noch einen Soundeffekt hinzufügen wenn der Spieler einen Sateliten fängt. Dazu gehen wir in das Soundeffekt Menu (siehe Bild unten)
+
+<div align="center">
+<img  src="images\step-by-step\37_sfx_menu.png" style="max-width: 300px;">
+</div>
+
+Dann zeichnen wir darunter mit der Maus eine einfache Form, etwa so:
+
+<div align="center">
+<img  src="images\step-by-step\36_sfx.png" style="max-width: 300px;">
+</div>
+
+> Tipp mit SPACE könnt ihr einen Sound effekt abspielen
+
+Schlussendlich müssen wir den Sound effekt nur noch im Spiel einbauen. Dazu müssen wir uns die Nummer oben links im Editor merken. (In diesem Fall `00`)
+
+<div align="center">
+<img  src="images\step-by-step\38_sfx_id.png" style="max-width: 300px;">
+</div>
+
+Dann gehen wir nocheinmal in unsere `update_player` funktion und setzen am gleichen Ort wie dort wo wir die Punkt zaehlen `sfx(0)` ein um den 0. Sound effekt den wir gerade gezeichnet haben abzuspielen.
+
+```lua
+function update_player()
+ 
+ [...]
+
+ if satelite_catched then
+  spawn_satelite() --sateliten neu platzieren
+  score += 1
+  sfx(0)
+ end
+end
+```
+
+
 # Esplosionen
 So nun nachdem wir etwas zum gewinnen im Spiel eingebaut haben, brauchen wir noch etwas zum verlieren. Wir implementieren Explosionen. Dieser werden wir durch farbige wachsende Kreise implementieren. Wenn der Spieler sich in einer Explosion drin befindet, dann zeigen wir den momentanen Punkte stand an und zeigen einen Game Over Bildschirm.
 
 
 
-## Sterne platzieren
+# Hintergrund
+
+Um das Spiel ein weniger interessanter ausehen zu lassen werden wir nun einige Sternen im Hintergund generieren. Dazu benutzen wir wieder unsere `get_rnd_screen_pos` Funktion.
+
+
+Das Endresultat wird so aussehen:
+
+<div align="center">
+<img  src="images/step-by-step/21_rnd_stars.png" style="max-width: 300px;">
+</div>
+
 Nun können wir mit der Funktion Sterne im Hintergrund platzieren. Jetzt wäre noch ein guter Zeitpunkt um noch ein paar Sterne im Graphics Menu zu zeichen wenn ihr dass noch nicht gemacht habt. Bei mir sieht dass am Ende so aus:
 
 <div align="center">
