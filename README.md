@@ -1199,11 +1199,21 @@ Um den sogenannten Quellcode einer "Cartridge" oder "Cart" von der Lexaloffle Se
 </div>
 
 9. Nun können wir mit CTRL + R die Cartridge laufen lassen. Danach schauen wir uns den Code einmal an.
-10. nun kopieren wir die ganze `circ_col(c1, c2)` Funktion und kopieren sie in unser Projekt. 
+10. nun kopieren wir die ganze `circ_col(c1, c2)` Funktion und kopieren sie in unser Projekt (`util tab`). 
 11. Nun werden wir die Funktion in unserem Projekt verwenden.
 
-### Player Kollider implementieren
+Falls die Funktion nicht mehr online verfügbar sein sollte:
+```lua
+function circ_col(c1, c2)
+  local dx = c1.pos.x - c2.pos.x
+  local dy = c1.pos.y - c2.pos.y
+  local distance = sqrt(dx*dx + dy*dy)
+  return distance <= (c1.r + c2.r)
+end
+```
 
+### Player Kollider implementieren
+So nun gilt es nur noch das gelernte zu kombinieren
 
 
 ## Sterne platzieren
