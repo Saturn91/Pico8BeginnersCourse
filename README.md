@@ -1455,8 +1455,8 @@ Da wir nun die oberen 8pixel unsers Spielfelds durch UI verdecken kann es vorkom
 --util
 function get_rnd_screen_pos()
 	return  {
-		x = rnd() * 120,
-		y = rnd() * 112 + 8 + 1 --screenpos without UI
+		x = rnd() * 120 + 4,
+		y = rnd() * 108 + 8 --screenpos without UI
 	}
 end
 ```
@@ -1498,8 +1498,226 @@ end
 ```
 
 
-# Esplosionen
+# Explosionen
 So nun nachdem wir etwas zum gewinnen im Spiel eingebaut haben, brauchen wir noch etwas zum verlieren. Wir implementieren Explosionen. Dieser werden wir durch farbige wachsende Kreise implementieren. Wenn der Spieler sich in einer Explosion drin befindet, dann zeigen wir den momentanen Punkte stand an und zeigen einen Game Over Bildschirm.
+
+Das wird am Ende dann so aussehen
+
+TODO ADD IMAGE
+
+Dazu wollen wir folgende Zwischenschritte implementieren.
+
+1. Ein neues Tab `Explosion`
+2. Wir lernen Arrays kennen und fügen einen Array `explosion` hinzu.
+3. Wir zeichnen alle Explosionen in ein dem array mit der Funktion `draw_explosions()` als kleine blinkende Kreise
+4. Wir fügen Eine Funktion hinzu welche uns erlaubt an einer zufälligen Position auf dem Bildschirm eine Explosion zu spawnen
+5. nach 2s lassen wir die kleinen Blinkenden  Explosionen verschwinden und lassen für 1s die echte Explosion anzeigen
+6. Wenn der Spieler mit einer der Explosionen kollidiert pausieren wir das Spiel und zeigen einen Text `game over` und die Endpunktzahl an mittig im Spiel.
+
+## Neues Tab Explosion
+Wie gehabt fügen wir ein Tab ein und setzen in der ersten Linie einen Kommentar `--explosion`
+
+## Arrays oder Listen
+In unserem Spiel wollen wir mehr als nur eine Explosion auf dem Bildschirm haben, deshalb müssen wir den Code ein wenig anders gestalten als für den Sateliten und den Player. Wir brauchen eine Liste von Explosionen. Dazu verwendet man beim Programmieren `arrays`. Lass uns einmal ein Beispiel für einen sogenannten array anschauen:
+
+```lua
+names = {"Karli", "Lotti", "Hugo"}
+```
+
+> wie ihr seht haben wir nun eine Variabe die mehrere Objekte enthält. In unserem Fall mehrere Namen.
+
+Wir können einmal schauen was passiert wenn wir im Terminal folgendes eingeben:
+
+```lua
+names = {"Karli", "Lotti", "Hugo"} + ENTER
+print(names) + ENTER
+```
+
+<div align="center">
+<img  src="images\step-by-step\39_array_terminal_table.png" style="max-width: 300px;">
+</div>
+
+> anstelle wie bisher wenn wir eine Variable ausgeben steht nun "table", dies weil unsere Variable von geschweiften Klammern umgeben ist.
+
+Wir können nun ein beliebiges Element dieser Liste im Terminal ausgeben mit folgendem Code:
+
+```lua
+names = {"Karli", "Lotti", "Hugo"} + ENTER
+print(names[1]) + ENTER
+```
+
+Dies sieht dann so aus, probiert auch was passiert wenn ihr 2, 3 und 4 (achtung solange ist unsere Liste gar nicht) versucht auszugeben
+
+Für die Werte 1-3 (welche existieren in unser liste) sollte es so ausehen
+<div align="center">
+<img  src="images\step-by-step\40_list_access.png" style="max-width: 300px;">
+</div>
+
+Für Werte grösser (> 3) oder kleiner als unsere Liste (<1) wird `NIL` angezeigt, was beim Programmieren als "nichts" verstanden werden kann.
+
+<div align="center">
+<img  src="images\step-by-step\41_array_nil.png" style="max-width: 300px;">
+</div>
+
+Um alle Namen im Terminal auszugeben brauchen wir ein neues Werkzeug aus dem Programmierwerkzeugkasten. Die `FOR`-Schlaufe.
+
+## Die FOR-Schlaufe
+Mit `for` können wir unter anderem Arrays auslesen. Lass uns dazu ein Beispiel im Terminal anschauen:
+
+```lua
+names = {"Karli", "Lotti", "Hugo"} + ENTER
+for i=1,3 do print(names[i]) end + ENTER
+```
+
+<div align="center">
+<img  src="images/step-by-step/26_array.png" style="max-width: 300px;">
+</div>
+
+Wir können mit `FOR` also eine Liste auslesen und für jedes Element in der Liste eine Aktion (in diesem Fall print) ausführen. Dies werden wir verwenden um alle Explosionen zu zeichnen.
+
+> Erklärung `FOR` lässt sich mit `FÜR` übersetzen `DO` mit `TUE oder MACHE`. Wenn wir also übersetzen was in unserem `FOR` Beispiel genau drin steht wäre das etwa: `(For) Für eine Variabel i welche von 1 bis 3 geht - mache (do) folgendes` und dann wird alles bis zum dazugehörigen `END` ausgeführt.
+
+Damit können wir arbeiten.
+
+Ein letzter Tipp noch, wenn ihr die Länge eines Array braucht, dann könt ihr `#names` verwenden. Dies erlaubt uns eine `FOR` schlaufe auszuführen bei der wir nicht von Anfang wissen wie lange die Liste ist (z.B. weil die Anzahl an Explosionen ändern kann).
+
+Dass kann uns wie folgt helfen:
+
+```lua
+names = {"Karli", "Lotti", "Hugo", "Gertrude"} + ENTER
+--beachte das #names hier!
+for i=1,#names do print(names[i]) end + ENTER
+```
+
+> neu steht hier `(For) Für eine Variabel i welche von 1 bis zur Länge des arrays geht - mache (do) folgendes` ...
+
+Damit haben wir nun alles zusammen um unsere Explosionen zu zeichnen.
+
+## Explosion Hard coden
+> hard coden heisst, dass wir vorerst einen Wert ohne Logik einführen (der immer gleich ist). Wir verwenden dass um zu verstehen wie wir die Explosionen programmieren müssen.
+
+Als erstes erstellen wir einen Array der bereits zwei leere Explosionen enthält:
+
+```lua
+--explosions
+
+--dies ist ein Array / eine Liste
+explosions = {
+    --ACHTUNG noch einmal klammern
+    --Nun kommt Explosion 1
+    {
+
+    },
+    --Dies ist Explosion 2
+    {
+
+    }
+}
+
+```
+
+Was brauchen unsere Explosionen?
+
+1. Eine position auf dem Bildschirm
+2. Einen Radius
+3. Eine Farbe
+4. Eine Variable die die Funktion blinken lässt, so dass wir wissen wann eine explosion gefährlich ist und wann nicht
+
+```lua
+--explosions
+
+explosions = {
+ --achtung noch einmal klammern
+ --nun kommt explosion 1
+ {
+  pos = {x=30,y=40},
+  r = 40,
+  color = 2,
+  blink = true
+ },
+ --dies ist explosion 2
+ {
+  pos = {x=100,y=50},
+  r = 30,
+  color = 8,
+  blink = false
+ },
+}
+```
+
+## Explosionen zeichnen
+Nun fügen erstellen wir die Funktion `draw_explosions`.
+
+1. Funktion im Tab `explosions` einfügen
+2. Einen Kreis zeichnen für(!) jede Explosion
+3. Blinken implementieren
+
+```lua
+function draw_explosions()
+ for i=1,#explosions do
+  ex = explosions[i]
+  circfill(ex.pos.x,ex.pos.y,ex.r,ex.color)
+ end
+end
+```
+
+Und nun machen wir einen kleinen Ausflug um zu verstehen was Blinken bedeutet.
+
+## Blinken
+
+Blinken heisst dass wir etwas - in diesem Falle einen Kreis - für eine Zeit zeichnen und danach für die gleiche Zeitlänge nicht zeichnen.
+
+Wir wissen mittlerweile, dass wir 30 Frames anzeigen pro Sekunde, also 30 mal pro Sekunde wird `_draw` und `_update` aufgerufen. Wir könnten zum Beispiel sagen dass wir aber unsere Blink animation nur 15 frames lange anzeigen und danach 15 frames nicht. 
+
+Wir können dafür im `main` Tab eine Variable `_blink_t` einfügen die bei jedem frame eins hoch zählt, hat diese Variable 15 erreicht, wechseln wir eine zweite Variable `_blink` wenn sie `true` ist auf `false` oder umgekehrt.
+
+Lass uns dies in main programmieren
+
+```lua
+--main
+
+--hier unsers blink variable hinzufügen
+_blink_t = 0
+_blink = true
+
+[...]
+
+function _update()
+ _blink_t += 1
+ if _blink_t >= 15 then --15 verれさndern fれもr schnellers blinken
+     _blink_t = 0
+     _blink = not _blink --_blink umschalten
+ end
+
+	update_player()
+end
+
+[...]
+
+```
+
+Nun haben wir eine Variable `_blink` die an und aus ist mit einer definierten Frequenz (momentan 0.5s an und 0.5s aus)
+
+Diese können wir nun verwenden um Elemente im Spiel blinken zu lassen.
+
+## Blinkende Explosionen
+
+Um eine Explosion welche ein `.blink = true` hat blinken zu lassen müssen wir unsere `draw_explosions` Funktion anpassen.
+
+```lua
+function draw_explosions()
+ for i=1,#explosions do
+  ex = explosions[i]
+  if not (ex.blink and _blink) then
+  	circfill(ex.pos.x,ex.pos.y,ex.r,ex.color)
+ 	end
+ end
+end
+```
+
+Ich gebe zu, das `IF` ist ein wenig kompliozierter als die besherigen. Ihr müsst es auch nicht komplett verstehen. Aber am Ende macht diese Funktion dass sobald eine Explosion `.blink = true` die Funktion nicht angezeigt wird wenn `_blink = true` ist... Dadurch können wir die Explosion normal anzeigen wenn ihr `.blink` nicht auf `true` ist und sie wird blinken wenn `.blink` `true` ist.
+
+## Nun implementieren wir die Spawn Funktion für unsere Explosionen
 
 
 
