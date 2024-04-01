@@ -707,6 +707,17 @@ local speed = 2
 
 > wo müssen wir diese Variabel nun hinzufügen?
 
+# Den Player im Spielfeld halten
+Momentan kann der Spieler das Spielfeld ungehindert verlassen. Um das zu verhindern können wir ganz einfach seine x und y Position begrenzen. Dazu verändern wir den Code im Player Tab indem wir folgende Zeilen unten in "update_player" hinzufügen.
+
+```lua
+--spieler im spielfeld halten
+ if player.pos.x < 0 then player.pos.x = 0 end
+ if player.pos.y < 0 then player.pos.y = 0 end
+ if player.pos.x > 120 then player.pos.x = 120 end
+ if player.pos.y > 120 then player.pos.y = 120 end
+```
+
 # Funktionen allgemein
 Im nächsten Kapitel werden wir anfangen unser nächstes Feature einzubauen. Den Sateliten, den es einzusammeln gilt. bevor wir dass aber machen möchte ich euch das Konzept von Funktionen näher bringen, so dass wir unseren Code ein wenig besser aufräumen können.
 
@@ -1715,9 +1726,229 @@ function draw_explosions()
 end
 ```
 
-Ich gebe zu, das `IF` ist ein wenig kompliozierter als die besherigen. Ihr müsst es auch nicht komplett verstehen. Aber am Ende macht diese Funktion dass sobald eine Explosion `.blink = true` die Funktion nicht angezeigt wird wenn `_blink = true` ist... Dadurch können wir die Explosion normal anzeigen wenn ihr `.blink` nicht auf `true` ist und sie wird blinken wenn `.blink` `true` ist.
+Ich gebe zu, das `IF` ist ein wenig komplizierter als die besherigen. Ihr müsst es auch nicht komplett verstehen. Aber am Ende kümmert sich diese Funktion darum, dass sobald eine Explosion mit `.blink = true` nicht gezeichnet wird wenn `_blink = true` ist... Dadurch können wir die Explosion normal anzeigen wenn ihr `.blink` nicht auf `true` ist und sie wird angezeigt wenn `.blink` `true` ist.
 
 ## Nun implementieren wir die Spawn Funktion für unsere Explosionen
+
+Dazu werden wir im `--explosions` Tab eine Funktion `spawn_explosion`.
+
+```lua
+--explosions
+
+explosions = {} -- keine explosionen am anfang
+explosion_counter = 0 --zaehlt explosion von 1-10 danach von vorne
+
+function spawn_explosion()
+ explosion_counter += 1
+ explosions[explosion_counter] = {
+  pos = get_rnd_screen_pos(),
+  color = 9,
+  blink = true,
+  r = rnd() * 25 + 8,
+ }
+
+ if explosion_counter == 10 then --bei 10 von vorne anfangen
+  explosion_counter = 0
+ end
+end
+```
+
+> schauen wir uns einmal an was diese Funtion genau macht
+1. wir verwenden die neue `add` function diese erlaubt uns einem Array ein neues Element hinzu zu fügen.
+2. wir fügen dem explosions array ein neues Element zu welches:
+3. eine zufällige Bildschirmposition hat
+4. die Farbe 9 hat
+5. von Anfang an blinked
+6. einen zufälligen Radius 8-33 hat.
+
+Um zu testen ob unsere Funktion funktioniert können wir im `main` tab `_init` eine neue Explosion spawnen
+
+```lua
+function _init()
+	init_player()
+	spawn_satelite()
+	init_ui()
+	spawn_explosion() -- hier hinzufügen
+end
+```
+
+Dies sollte uns zu jedem Spiel start einen blinkenden Kreis hinzufügen.
+
+## Explosion nach 2s nicht mehr blinken lassen
+Nun müssen wir eine `update_explosions()` Funktion hinzufügen, welche nach 2s unsere Explosion nicht mehr blinken lässt, sondern voll anzeigt. In diesem Zustand wird sie später dem Player gefährlich werden.
+
+Dazu müssen wir ausserdem wissen wann die Explosion gespawnet wurde.
+
+```lua
+--explosions
+
+explosions = {} -- keine explosionen am anfang
+explosion_counter = 0
+
+function spawn_explosion()
+ explosion_counter += 1
+ explosions[explosion_counter] = {
+  pos = get_rnd_screen_pos(),
+  color = 9,
+  blink = true,
+  r = rnd() * 25 + 8,
+  blink_f = 60 --steht fれもr blink frames fれもr 2s 60 frames (bei 30fps)
+ }
+
+ if explosion_counter == 10 then --max array laenge 10
+  explosion_counter = 0
+ end
+end
+
+function update_explosions()
+ for i=1,#explosions do
+  local e = explosions[i]
+
+  --nur explosionen updaten die noch nicht "none" sind
+  if e != "none" then
+   --am ende die Explosion loeschen
+   if e.blink_f <= 0 and not e.blink then
+     explosions[i] = "none" --explosion loeschen
+   else
+     --explosion blinkt nicht mehr / kann spieler gefaehrlich werden
+    if not e.blink then
+     if circ_col(player,e) then
+      player.alive = false
+     end
+    end
+  
+    e.blink_f -= 1 --zeit updaten
+
+    --nach blinken 60 frames (2s) explosion anzeigen
+    if e.blink_f <= 0 and e.blink then
+      e.blink = false
+      e.blink_f = 60 
+    end
+   end
+  end
+ end
+end
+
+function draw_explosions()
+ for i=1,#explosions do
+  ex = explosions[i]
+  if ex != "none" then --explosionen mit "none" nicht zeichnen
+   if not (ex.blink and _blink) then
+  	 circfill(ex.pos.x,ex.pos.y,ex.r,ex.color)
+   end
+  end
+ end
+end
+
+```
+
+Diese Funktion müssen wir jetzt einmal genauer auseinander nehmen.
+
+1. Für jede gespawnte Explosion führen wir den Code ab punkt 3 aus
+3. Zuerst speichern wir die aktuelle Explosion in der Variable `e`, dies um weniger schreiben zu müssen
+4. Nur Explosionen welche nicht den Wert "none" haben werden upgedatet (das sind gelöschte Explosionen)
+5. Wenn die Explosion nicht mehr blinked und ihre Lebenszeit `blink_f` in frames 0 erreicht (dass passiert zweimal) dann löschen wir die Explosion indem wir sie auf "none" setzen.
+6. Wenn wir die Explosion noch nicht löschen müssen kommt der rest vom code an Punkt 7
+7. Wenn die Explosion nicht mehr blinkt kann sie dem Player gefährlich werden -> collision mit Spieler testen, falls true, spieler mit .alive = false inaktiv setzen, Spiel verloren
+8. Dann updaten wir die Zeit blink_f indem wir in jedem Frame eins abziehen. Erreichen wir 0 UND wir blinken momentan (wie am Anfang) dann deaktivieren wir das Blinken.
+
+Damit dieser Code funktioniert müssen wir 3 weitere Dinge machen.
+
+1. Dem Player eine variable `alive = true` hinzufügen
+2. Das Spiel nur updaten wenn der Spieler am leben ist (dadurch "friert das Spiel ein wenn er stirb")
+3. die Funktion `update_explosions` im `main` tab aufrufen
+
+```lua
+--player
+player = {
+ pos={x=0,y=0},
+ r = 4, --needed for collision
+ spr_offset = {x=-4,y=-4},
+ speed = 2,
+ alive = true, --hier alive varaible auf true setzen
+}
+```
+
+```lua
+--main
+function _update()
+ if not player.alive then return end --wenn der spieler tot ist nicht updaten
+
+ _blink_t += 1
+ if _blink_t >= 15 then
+  _blink_t = 0
+  _blink = not _blink
+ end
+
+ update_player()
+ update_explosions() --hier die funktion einfügen
+end
+```
+
+## Gameover Menu
+Nun können wir wenn der Player gestorben ist ein Gameover Schriftzug anzeigen. Dazu können wir wieder die variable `player.alive` verwenden. Ist diese `false` haben wir verloren und zeigen `game over` an.
+
+Dazu müssen wir die `draw_ui()` Funktion erweitern.
+
+```lua
+function draw_ui()
+ rectfill(0,0,128,8,1)
+ print("score:"..score,2,2,9)
+ 
+ if not player.alive then
+  print("game over", 45, 59, 8)
+ end
+end
+```
+
+## Mehr als eine Explosion
+Bis jezt haben wir nur eine einzige Explosion die am Anfang gespawnt wird. Was wir eigentlich wollen sind mehrere Explosionen die mehr und mehr dazu kommen. 
+
+Was heisst dass genau:
+1. wir wollen immer wieder neue Explosionen spawnen
+2. Im Prinzip heisst das, dass wir alle x Sekunden eine weitere Explosion hinzufügen wollen.
+
+> Lass uns implementieren, dass wir alle 2-4 Sekunden eine neue Explosion spawnen.
+
+Wir können dazu wieder unseren Trick mit den Frames verwenden. Wir werden nach jeder gespawnten Explosion eine zufälige Zahl zwischen 2 und 4 generieren und diese dann mit 30 (30fps) multiplizieren. In jedem Update subtrahieren wir dann 1 von dieser Zahl, wenn die Zahl 0 ist spawnen wir einen neue Explosion.
+
+Dies werden wir im Explosions Tab umsetzen
+
+```lua
+--explosions
+
+explosions = {} -- keine explosionen am anfang
+explosion_counter = 0
+
+next_spawn = 2*30 --immer 2s nach start
+
+function spawn_explosion()
+ explosion_counter += 1
+ explosions[explosion_counter] = {
+  pos = get_rnd_screen_pos(),
+  color = 9,
+  blink = true,
+  r = rnd() * 25 + 8,
+  blink_f = 60 --steht fれもr blink frames fれもr 2s 60 frames (bei 30fps)
+ }
+
+ if explosion_counter == 10 then --max array laenge 10
+  explosion_counter = 0
+ end
+ 
+ next_spawn = (rnd() * 2 + 2) * 30 -- 2s-4s * 30 diese zeile einfuegen
+end
+
+function update_explosions()
+ --hier den neuen code einfügen
+ next_spawn -= 1
+ if next_spawn <= 0 then
+ 	spawn_explosion()
+ end
+
+ [...]
+end
+```
 
 
 
