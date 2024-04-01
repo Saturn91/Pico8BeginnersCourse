@@ -1514,7 +1514,9 @@ So nun nachdem wir etwas zum gewinnen im Spiel eingebaut haben, brauchen wir noc
 
 Das wird am Ende dann so aussehen
 
-TODO ADD IMAGE
+<div align="center">
+<img  src="images\step-by-step\42_explosions.png" style="max-width: 300px;">
+</div>
 
 Dazu wollen wir folgende Zwischenschritte implementieren.
 
