@@ -32,7 +32,7 @@ Spieleentwicklung mit Pico-8 2024 / Saturn91
 
 (lose Übersetzung der englischen offiziellen Webseite (lexaloffle.com)[https://www.lexaloffle.com/pico-8.php])
 
-    PICO-8 ist eine fantastische Konsole zum Erstellen, Teilen und Spielen von kleinen Spielen und anderen Computerprogrammen. Es fühlt sich an wie eine normale Konsole, läuft aber unter Windows/Mac/Linux. Beim Einschalten begrüßt dich das Gerät mit einer Kommandozeile, einer Reihe von Tools zur Erstellung von Cartridges und einem Online-Cartridge-Browser namens SPLORE.
+    PICO-8 ist eine fantasy Konsole zum Erstellen, Teilen und Spielen von kleinen Spielen und anderen Computerprogrammen. Es fühlt sich an wie eine normale Konsole, läuft aber unter Windows/Mac/Linux. Beim Einschalten begrüßt dich das Gerät mit einer Kommandozeile, einer Reihe von Tools zur Erstellung von Cartridges und einem Online-Cartridge-Browser namens SPLORE.
 
 ## Pico-8 starten
 Wir verwenden heute die gratis online version von Pico-8 die "Education" (oder zu Deutsch "Ausbildungs") version. Diese erlaubt uns das komplette Spiel zu erstellen und alle Featurees der Konsole zu verwenden, AUSSER das exportieren des Spiels als ".exe" file. Dies geht nur mit der bezahlten Version. Wer möchte kann sich am Ende des Tages bei mir melden und dann kann ich gerne dabei helfen eine Version zu erhalten.
@@ -1950,8 +1950,6 @@ function update_explosions()
 end
 ```
 
-
-
 # Hintergrund
 
 Um das Spiel ein weniger interessanter ausehen zu lassen werden wir nun einige Sternen im Hintergund generieren. Dazu benutzen wir wieder unsere `get_rnd_screen_pos` Funktion.
@@ -2001,6 +1999,31 @@ end
 
 ```
 
+
+
+## Background in main einbinden
+Im Main müssen wir nun noch die beiden Funktionen `init_stars` und `draw_stars` einfügen um sie auch tatsächlich aufzurufen.
+
+```lua
+function _init()
+	init_player()
+	spawn_satelite()
+	init_bg()
+	init_ui()
+	spawn_explosion()
+end
+
+function _draw()
+	cls()
+	draw_bg()
+	draw_explosions()
+	draw_satelite()
+	draw_player()
+	draw_ui()
+	rect(0,0,127,127,1)
+end
+```
+
 Das Resultat sollte nun so ausehen.
 
 <div align="center">
@@ -2009,89 +2032,63 @@ Das Resultat sollte nun so ausehen.
 
 Nun ist ein Stern aber ein wenig langweilig. wir wollen mehr.
 
-Der einfachste Weg wäre jetzt folgender:
+## Mehrere Sterne mit for loop zeichnen
+Dazu untenstehenden Code einfügen
 
 ```lua
 --background
 
-star1 = {}
-star2 = {}
+stars = {}
+star_num = 20
 
 function get_rnd_star()
-    return ceil(rnd() * 4) + 2 --dies wählt eine Nummer [3-6] aus (die sternen sprites)
+ return ceil(rnd() * 4) + 2 --dies wählt eine Nummer [3-6] aus (die sternen sprites)
 end
 
 function init_bg()
-    --get local pos
-    star1.pos = get_rnd_screen_pos()
-    star1.sprite = get_rnd_star()
-    star2.pos = get_rnd_screen_pos()
-    star2.sprite = get_rnd_star()
+ for i=1,star_num do --20x einen Stern generieren und im Array "stars" abspeichern
+  add(stars,{
+    pos=get_rnd_screen_pos(),
+    sprite=get_rnd_star()
+  })
+ end
 end
 
 function draw_bg()
-    --draw star
-    spr(star1.sprite,star1.pos.x,star1.pos.y)
-    spr(star2.sprite,star2.pos.x,star2.pos.y)
+ --draw all stars
+ for i=1,#stars do --20x einen Stern generieren und im Array "stars" abspeichern
+  star = stars[i]
+  spr(star.sprite,star.pos.x,star.pos.y)
+ end    
 end
 
---update brauch der BG keins weil sich nichts verändern wird
-
+--update brauch der BG keins weil sich nichts veraendern wird
 ```
 
-> Dies könnten wir jetzt solange machen bis wir genug Sterne zusammen haben, aber wie schon einmal gesagt sind Programmierer faul. So faul, dass sie sich die Arbeit gemacht haben sogenante FOR loops zu programmieren. Diese lassen den Nutzer den genau gleichen Code mehrmals laufen zu lassen.
+# Wie Weiter?
+Gratuliere, Du hast jetzt eine Vorstellung was es alles benötigt um Spiele zu programmieren. Wenn du dieses Hobby weiter verfolgen möchtest, hast du nun eine gute Basis. Es wird jedoch noch einmal etwas ganz anderes sein wenn du alleine an deinem Schreibtisch sitzt und deine eigenen Ideen umsetzt. 
 
-### Die FOR Schlaufe oder wie man Code z.B. 10x wiederholt
-Gebt einmal den unten stehenden code ins Terminal ein:
-```lua
-for i=1,3 do print(i) end
-```
+In erster Linie wird es sehr schwierig sein die Lösung zu finden für selbst gestellte Probleme. Was euch dabei helfen kann sind:
 
-Mein resultat sieht so aus. Wir sehen das der print Befehl 3x ausgeführt wurde und zwar von 1-3 (und i hat dann jeweils diesen Wert). Der code in der For loop wurde 3x wiederholt.
+- youtube tutorials z.B. [Lazy-dev](https://www.youtube.com/@LazyDevs) (Englisch): 
+- das Cheat sheet dass ich euch gezeigt habe
+- [Pico-8 wiki](https://pico-8.fandom.com/wiki/Pico-8_Wikia)
+- Fragen auf Discord im [Pico8 channel](https://discord.gg/A67ftg9F)
+- Spielecode von [Lexaloffle](https://www.lexaloffle.com/pico-8.php) herunterladen und schauen wie es dort gelöst wurde
 
-<div align="center">
-<img  src="images/step-by-step/25_for_terminal.png" style="max-width: 300px;">
-</div>
+Falls ihr ein paar gute Anfänger projekte für euch selbst sucht, fangt mit kleinen Dingen an, die sind schwer genug, fragt am Besten chat gpt oder google wie die Spiele genau funktionieren:
 
-Wir kommen darauf gleich noch einmal zurück.
+1. Snake
+2. Tetris
+3. Plattformer
 
-### Arrays oder Listen
-
-Wir können nun ebenfalls sogenannte Listen im Code haben. Listen sind variabeln die eine Anzahl Variabeln vom gleichen Typ speichern können. Klingt erstmal kompliziert, aber das Folgende Beispiel sollte es euch anschaulich erklären.
-
-(bitte im Terminal eingeben)
-
-```lua
-names = {"Karli", "Lotti", "Hugo"} + ENTER
-for i=1,3 do print(names[i]) end + ENTER
-```
-<div align="center">
-<img  src="images/step-by-step/26_array.png" style="max-width: 300px;">
-</div>
-
-Wir können also Listen von Werten erstellen und diese mit einer For loop verwenden.
-
-Dass machen wir jetzt mit unseren Sternen. In `init_bg` werden wir die Tabelle füllen. Und in `draw_init` zeichnen wir die Tabelle dann.
-
-
-
-# Kollision
-
-# SFX
-
-# Punkte und UI
-
-# Main menu
-
-# Highscore
-
-# Explosionen (Bonus Kapitel)
-
-# Hintergrund (Bonus Kapitel 2)
-
-## Pico-8 Cheatsheet (Spickzettel)
-
-## Wie Weiter?
-
-## Debugging / Fehlersuche
+> Zu guter Letzt! Programmieren ist nicht einfach! Es ist sehr schwierig vor allem am Anfang. Lasst euch davon niemals entmutigen, ich selbst lerne nach mehr als 6 Jahren Spieleprogrammierung JEDEN Tag dazu! 
  
+
+# Ein paar weitere Ideen um das Spiel abzuschliessen
+Ab jetzt müsst ihr euch selber überlegen wie ihr das Spiel weiter programmieren müsst. Ich werde an dieser Stelle ein paar hinweise un Tipps geben was wie ihr vorgehen könnt um bestimmte Dinge zu programmieren.
+
+1. Explosions sound. Spielt mit dem Sound Editoren herum bis ihr einen Explosions sound habt. Vielleicht hilft ja eine Youtubesuche nach Pico8 Explosion sound weiter?
+2. Spiel neustarten am Ende. Anstelle dass ihr das Spiel einfriert könntet ihr das Spiel wenn man einen Knopf drückt neustarten. Ihr müsstet dann aber eine Funktion aufrufen die das Spiel wieder reseted. Also Punkte auf 0 setzte, den Explosionen array wieder auf `explosions = {}` setzen um alle Explosionen zu löschen und vlt die Sterne neu generieren. Vieles davon nimmt euch das Aufrufen der _init() funktion ab - aber nicht alles
+
+3. Wenn ihr Inspiration braucht, nehmt einmal [dieses Spiel](https://www.lexaloffle.com/bbs/?tid=43631) hier auseinander, das war das Vorbild für unser Spiel heute - ihr wisst ja jetzt wie man eine Cartridge importiert (tipp dragg and drop auf Pico-8 edu) 
