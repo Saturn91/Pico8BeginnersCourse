@@ -26,6 +26,10 @@ Spieleentwicklung mit Pico-8 2024 / Saturn91
 
 <div style="page-break-after: always;"></div>
 
+# Copyright / Lizenz - Weiterverwendung: 
+Dieses Dokument / Repository kann unter der MIT Lizenz verwendet werden.
+You are allowed to use this Document / Repository under MIT Lisence. 
+
 # Was ist Pico 8
 
 <img src="images/intro/originalDescription.png">
